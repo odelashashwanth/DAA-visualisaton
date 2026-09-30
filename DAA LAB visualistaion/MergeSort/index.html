@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge Sort Visualizer</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background"></div>
+
+    <!-- Header -->
+
+    <header>
+
+        <h1>Merge Sort Visualizer</h1>
+
+        <p>
+            Learn Merge Sort using beautiful animations based on the Divide and Conquer technique.
+        </p>
+
+    </header>
+
+    <!-- Main Container -->
+
+    <div class="container">
+
+        <!-- Left Side -->
+
+        <div class="left-panel">
+
+            <!-- Controls -->
+
+            <div class="card"></div>
+
+                <h2>Controls</h2>
+
+                <div class="control-group">
+
+                    <label>Manual Array</label>
+
+                    <input type="text" id="arrayInput" placeholder="Example : 8,4,7,3,9,2,6,1">
+
+                </div>
+
+                <div class="buttons">
+
+                    <button id="generateBtn">
+                        Generate Random
+                    </button>
+
+                    <button id="loadBtn">
+                        Load Array
+                    </button>
+
+                </div>
+
+                <div class="slider-box">
+
+                    <label>
+                        Array Size
+                    </label>
+
+                    <input type="range" id="sizeSlider" min="5" max="50" value="20">
+
+                    <span id="sizeValue">
+                        20
+                    </span>
+
+                </div>
+
+                <div class="slider-box">
+
+                    <label>
+                        Animation Speed
+                    </label>
+
+                    <input type="range" id="speedSlider" min="1" max="100" value="50">
+
+                    <span id="speedValue">
+                        Medium
+                    </span>
+
+                </div>
+
+                <div class="buttons">
+
+                    <button id="startBtn">
+                        ▶ Start
+                    </button>
+
+                    <button id="pauseBtn">
+                        ⏸ Pause
+                    </button>
+
+                    <button id="resumeBtn">
+                        ▶ Resume
+                    </button>
+
+                </div>
+
+                <div class="buttons">
+
+                    <button id="stopBtn">
+                        ■ Stop
+                    </button>
+
+                    <button id="resetBtn">
+                        Reset
+                    </button>
+
+                    <button id="shuffleBtn">
+                        Shuffle
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Statistics -->
+
+            <div class="card">
+
+                <h2>Statistics</h2>
+
+                <div class="stats">
+
+                    <div class="stat-box">
+
+                        <h3>Comparisons</h3>
+
+                        <p id="comparisonCount">
+                            0
+                        </p>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <h3>Merges</h3>
+
+                        <p id="mergeCount">
+                            0
+                        </p>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <h3>Timer</h3>
+
+                        <p id="timer">
+                            0.00 s
+                        </p>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <h3>Recursion Level</h3>
+
+                        <p id="level">
+                            0
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Complexity -->
+
+            <div class="card">
+
+                <h2>Complexity Analysis</h2>
+
+                <table>
+
+                    <tr>
+                        <td>Best Case</td>
+                        <td>O(n log n)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Average Case</td>
+                        <td>O(n log n)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Worst Case</td>
+                        <td>O(n log n)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Space Complexity</td>
+                        <td>O(n)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Stable</td>
+                        <td>Yes</td>
+                    </tr>
+
+                    <tr>
+                        <td>In-place</td>
+                        <td>No</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="right-panel">
+
+            <!-- Visualization -->
+
+            <div class="card">
+
+                <h2>Visualization</h2>
+
+                <div id="array-container">
+
+                </div>
+
+            </div>
+
+            <!-- Status -->
+
+            <div class="card">
+
+                <h2>Current Status</h2>
+
+                <p id="status">
+
+                    Waiting to Generate Array...
+
+                </p>
+
+            </div>
+
+            <!-- Merge Explanation -->
+
+            <div class="card">
+
+                <h2>Current Step</h2>
+
+                <p id="step">
+
+                    Merge Sort follows the Divide and Conquer strategy.
+
+                </p>
+
+            </div>
+
+            <!-- Algorithm -->
+
+            <div class="card">
+
+                <h2>Algorithm</h2>
+
+                <pre>
+
+MergeSort(arr,start,end)
+
+if(start&lt;end)
+
+mid=(start+end)/2
+
+MergeSort(start,mid)
+
+MergeSort(mid+1,end)
+
+Merge(start,mid,end)
+
+</pre>
+
+            </div>
+
+            <!-- Color Legend -->
+
+            <div class="card">
+
+                <h2>Color Legend</h2>
+
+                <div class="legend">
+
+                    <div>
+                        <span class="box default"></span>
+                        Normal
+                    </div>
+
+                    <div>
+                        <span class="box left"></span>
+                        Left Half
+                    </div>
+
+                    <div>
+                        <span class="box right"></span>
+                        Right Half
+                    </div>
+
+                    <div>
+                        <span class="box compare"></span>
+                        Comparing
+                    </div>
+
+                    <div>
+                        <span class="box merge"></span>
+                        Merging
+                    </div>
+
+                    <div>
+                        <span class="box sorted"></span>
+                        Sorted
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+
+        Developed for Design and Analysis of Algorithms (DAA)
+        <br>
+        Merge Sort Visualization using HTML, CSS and JavaScript
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

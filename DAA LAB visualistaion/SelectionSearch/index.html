@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Selection Sort Visualizer</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         BACKGROUND
+    ========================== -->
+
+    <div class="bg-circle circle-one"></div>
+    <div class="bg-circle circle-two"></div>
+    <div class="bg-circle circle-three"></div>
+
+
+    <div class="container">
+
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <header class="header">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    S
+                </div>
+
+                <div>
+
+                    <h1>
+                        SELECTION SORT
+                    </h1>
+
+                    <p>
+                        ALGORITHM VISUALIZER
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="algorithm-badge">
+
+                <span class="live-dot"></span>
+
+                INTERACTIVE
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             INTRODUCTION
+        ========================== -->
+
+        <section class="intro">
+
+            <div>
+
+                <span class="eyebrow">
+                    SORTING ALGORITHM
+                </span>
+
+                <h2>
+                    Find. Select. Place.
+                </h2>
+
+                <p>
+                    Watch Selection Sort find the smallest
+                    element and place it in its correct position
+                    step by step.
+                </p>
+
+            </div>
+
+
+            <div class="algorithm-number">
+
+                <strong>
+                    01
+                </strong>
+
+                <span>
+                    SELECTION
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CONTROL PANEL
+        ========================== -->
+
+        <section class="control-panel">
+
+
+            <div class="control-row">
+
+
+                <!-- ARRAY SIZE -->
+
+                <div class="control-group">
+
+                    <label>
+                        ARRAY SIZE
+                    </label>
+
+                    <input type="number" id="arraySize" value="12" min="5" max="30">
+
+                </div>
+
+
+
+                <!-- SPEED -->
+
+                <div class="control-group speed-control">
+
+                    <label>
+                        SPEED
+                    </label>
+
+                    <input type="range" id="speed" min="100" max="1500" value="600">
+
+                    <span id="speedValue">
+                        NORMAL
+                    </span>
+
+                </div>
+
+
+
+                <!-- ORDER -->
+
+                <div class="control-group">
+
+                    <label>
+                        SORT ORDER
+                    </label>
+
+                    <select id="sortOrder">
+
+                        <option value="ascending">
+                            ASCENDING ↑
+                        </option>
+
+                        <option value="descending">
+                            DESCENDING ↓
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="action-buttons">
+
+                <button id="shuffleBtn" class="btn secondary">
+
+                    🔀 SHUFFLE
+
+                </button>
+
+
+                <button id="startBtn" class="btn primary">
+
+                    ▶ START
+
+                </button>
+
+
+                <button id="pauseBtn" class="btn warning">
+
+                    ⏸ PAUSE
+
+                </button>
+
+
+                <button id="stopBtn" class="btn danger">
+
+                    ⏹ STOP
+
+                </button>
+
+
+                <button id="resetBtn" class="btn reset">
+
+                    ↻ RESET
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             ARRAY INPUT
+        ========================== -->
+
+        <section class="input-section">
+
+            <div class="section-title">
+
+                <span>
+                    CUSTOM ARRAY
+                </span>
+
+                <small>
+                    Enter numbers separated by commas
+                </small>
+
+            </div>
+
+
+            <div class="custom-input">
+
+                <input type="text" id="customArray" placeholder="Example: 64, 25, 12, 22, 11">
+
+                <button id="applyArrayBtn">
+
+                    APPLY ARRAY
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             VISUALIZER
+        ========================== -->
+
+        <section class="visualizer-card">
+
+
+            <div class="visualizer-header">
+
+                <div>
+
+                    <span>
+                        ARRAY VISUALIZATION
+                    </span>
+
+                    <h3>
+                        Selection Process
+                    </h3>
+
+                </div>
+
+
+                <div class="array-info">
+
+                    <span>
+                        ELEMENTS
+                    </span>
+
+                    <strong id="elementCount">
+                        12
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STATUS -->
+
+            <div class="status-box">
+
+                <div class="status-icon">
+                    🔎
+                </div>
+
+                <div>
+
+                    <span>
+                        CURRENT STEP
+                    </span>
+
+                    <p id="statusText">
+                        Ready to start Selection Sort...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ARRAY -->
+
+            <div id="arrayContainer" class="array-container">
+
+                <!-- JavaScript creates bars here -->
+
+            </div>
+
+
+
+            <!-- LEGEND -->
+
+            <div class="legend">
+
+                <div>
+                    <span class="legend-box default"></span>
+                    Unsorted
+                </div>
+
+                <div>
+                    <span class="legend-box current"></span>
+                    Current
+                </div>
+
+                <div>
+                    <span class="legend-box compare"></span>
+                    Comparing
+                </div>
+
+                <div>
+                    <span class="legend-box minimum"></span>
+                    Minimum
+                </div>
+
+                <div>
+                    <span class="legend-box sorted"></span>
+                    Sorted
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card comparisons">
+
+                <div class="stat-icon">
+                    ⚖
+                </div>
+
+                <div>
+
+                    <span>
+                        COMPARISONS
+                    </span>
+
+                    <strong id="comparisons">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card swaps">
+
+                <div class="stat-icon">
+                    🔄
+                </div>
+
+                <div>
+
+                    <span>
+                        SWAPS
+                    </span>
+
+                    <strong id="swaps">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card execution">
+
+                <div class="stat-icon">
+                    ⏱
+                </div>
+
+                <div>
+
+                    <span>
+                        EXECUTION TIME
+                    </span>
+
+                    <strong id="executionTime">
+                        0 ms
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card progress">
+
+                <div class="stat-icon">
+                    📊
+                </div>
+
+                <div>
+
+                    <span>
+                        PROGRESS
+                    </span>
+
+                    <strong id="progress">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             PROGRESS BAR
+        ========================== -->
+
+        <section class="progress-section">
+
+            <div class="progress-header">
+
+                <span>
+                    SORTING PROGRESS
+                </span>
+
+                <strong id="progressPercent">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="progress-track">
+
+                <div id="progressBar" class="progress-bar">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             ALGORITHM EXPLANATION
+        ========================== -->
+
+        <section class="algorithm-section">
+
+
+            <div class="section-heading">
+
+                <span>
+                    HOW IT WORKS
+                </span>
+
+                <h2>
+                    Selection Sort Logic
+                </h2>
+
+            </div>
+
+
+
+            <div class="steps-grid">
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Find Minimum
+                    </h3>
+
+                    <p>
+                        Search the unsorted portion of
+                        the array to find the smallest
+                        element.
+                    </p>
+
+                </div>
+
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Select Element
+                    </h3>
+
+                    <p>
+                        Keep track of the position of
+                        the minimum element found.
+                    </p>
+
+                </div>
+
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Swap
+                    </h3>
+
+                    <p>
+                        Exchange the minimum element
+                        with the first unsorted element.
+                    </p>
+
+                </div>
+
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Repeat
+                    </h3>
+
+                    <p>
+                        Continue until every element
+                        is placed in sorted order.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             COMPLEXITY
+        ========================== -->
+
+        <section class="complexity-section">
+
+
+            <div class="section-heading">
+
+                <span>
+                    PERFORMANCE
+                </span>
+
+                <h2>
+                    Time & Space Complexity
+                </h2>
+
+            </div>
+
+
+
+            <div class="complexity-grid">
+
+
+                <div class="complexity-card best">
+
+                    <span>
+                        BEST CASE
+                    </span>
+
+                    <strong>
+                        O(n²)
+                    </strong>
+
+                    <p>
+                        Comparisons remain quadratic
+                        even when the array is sorted.
+                    </p>
+
+                </div>
+
+
+
+                <div class="complexity-card average">
+
+                    <span>
+                        AVERAGE CASE
+                    </span>
+
+                    <strong>
+                        O(n²)
+                    </strong>
+
+                    <p>
+                        The algorithm performs quadratic
+                        comparisons on average.
+                    </p>
+
+                </div>
+
+
+
+                <div class="complexity-card worst">
+
+                    <span>
+                        WORST CASE
+                    </span>
+
+                    <strong>
+                        O(n²)
+                    </strong>
+
+                    <p>
+                        Maximum number of comparisons
+                        occurs in the worst case.
+                    </p>
+
+                </div>
+
+
+
+                <div class="complexity-card space">
+
+                    <span>
+                        SPACE
+                    </span>
+
+                    <strong>
+                        O(1)
+                    </strong>
+
+                    <p>
+                        Selection Sort works in-place
+                        using constant extra space.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             ALGORITHM DETAILS
+        ========================== -->
+
+        <section class="details-section">
+
+
+            <div class="detail-box">
+
+                <span>
+                    TYPE
+                </span>
+
+                <strong>
+                    Comparison Sort
+                </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <span>
+                    APPROACH
+                </span>
+
+                <strong>
+                    Divide & Select
+                </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <span>
+                    IN-PLACE
+                </span>
+
+                <strong>
+                    Yes
+                </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+                <span>
+                    STABLE
+                </span>
+
+                <strong>
+                    No
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer>
+
+            <div>
+
+                <strong>
+                    SELECTION SORT
+                </strong>
+
+                <span>
+                    ALGORITHM VISUALIZER
+                </span>
+
+            </div>
+
+
+            <p>
+                Built with HTML • CSS • JavaScript
+            </p>
+
+        </footer>
+
+    </div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

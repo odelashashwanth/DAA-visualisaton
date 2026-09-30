@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Making Change | Dynamic Programming Visualizer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+    <div class="background">
+
+        <div class="gradient-orb orb-one"></div>
+        <div class="gradient-orb orb-two"></div>
+        <div class="gradient-orb orb-three"></div>
+
+        <!-- Floating mathematical symbols -->
+        <div class="math-symbol symbol-one">dp[i]</div>
+        <div class="math-symbol symbol-two">min()</div>
+        <div class="math-symbol symbol-three">∞</div>
+        <div class="math-symbol symbol-four">amount</div>
+        <div class="math-symbol symbol-five">dp[i-coin]</div>
+        <div class="math-symbol symbol-six">O(n × A)</div>
+
+        <!-- Floating coins -->
+        <div class="floating-coin coin-bg-one">₹1</div>
+        <div class="floating-coin coin-bg-two">₹2</div>
+        <div class="floating-coin coin-bg-three">₹5</div>
+        <div class="floating-coin coin-bg-four">₹10</div>
+        <div class="floating-coin coin-bg-five">₹25</div>
+
+    </div>
+
+    <!-- Particles -->
+    <div id="particles"></div>
+
+
+    <!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                DP
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    ALGORITHM LAB
+                </strong>
+
+                <span>
+                    DYNAMIC PROGRAMMING
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="#visualizer">
+                Visualizer
+            </a>
+
+            <a href="#dp-table">
+                DP Table
+            </a>
+
+            <a href="#backtracking">
+                Backtracking
+            </a>
+
+            <a href="#learn">
+                Learn
+            </a>
+
+        </div>
+
+
+        <div class="nav-actions">
+
+            <button class="icon-button" id="soundToggle" title="Toggle Sound">
+
+                🔊
+
+            </button>
+
+
+            <button class="icon-button" id="themeToggle" title="Toggle Theme">
+
+                ☀
+
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================================
+     HERO SECTION
+========================================================= -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+
+                <span class="status-dot"></span>
+
+                INTERACTIVE DSA VISUALIZER
+
+            </div>
+
+
+            <h1>
+
+                Making Change
+
+                <span class="gradient-text">
+                    Problem
+                </span>
+
+                <br>
+
+                Using Dynamic Programming
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Find the minimum number of coins needed to make
+                a given amount — and watch every DP decision
+                happen in real time.
+
+            </p>
+
+
+            <div class="hero-formula">
+
+                <span>
+                    dp[i]
+                </span>
+
+                <span>
+                    =
+                </span>
+
+                <span>
+                    min(dp[i], dp[i - coin] + 1)
+                </span>
+
+            </div>
+
+
+            <div class="hero-actions">
+
+                <button class="primary-button" onclick="scrollToVisualizer()">
+
+                    <span>
+                        Start Visualizing
+                    </span>
+
+                    <span>
+                        ↓
+                    </span>
+
+                </button>
+
+
+                <button class="secondary-button" onclick="openHowItWorks()">
+
+                    <span>
+                        How DP Works
+                    </span>
+
+                    <span>
+                        ?
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Animated DP visualization -->
+
+        <div class="hero-visual">
+
+            <div class="dp-orbit orbit-one"></div>
+            <div class="dp-orbit orbit-two"></div>
+            <div class="dp-orbit orbit-three"></div>
+
+
+            <div class="dp-core">
+
+                <span>
+                    dp[i]
+                </span>
+
+                <strong>
+                    min()
+                </strong>
+
+            </div>
+
+
+            <div class="hero-coin hero-coin-one">
+                🪙
+            </div>
+
+            <div class="hero-coin hero-coin-two">
+                🪙
+            </div>
+
+            <div class="hero-coin hero-coin-three">
+                🪙
+            </div>
+
+
+            <div class="hero-floating-card hero-card-one">
+
+                <small>
+                    CURRENT
+                </small>
+
+                <strong>
+                    dp[5]
+                </strong>
+
+            </div>
+
+
+            <div class="hero-floating-card hero-card-two">
+
+                <small>
+                    BEST
+                </small>
+
+                <strong>
+                    1 COIN
+                </strong>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+     MAIN
+========================================================= -->
+
+    <main id="visualizer">
+
+
+        <!-- =========================================================
+     INPUT SECTION
+========================================================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    01
+                </span>
+
+                <div>
+
+                    <h2>
+                        Define Your Problem
+                    </h2>
+
+                    <p>
+                        Choose your coin denominations and target amount.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-panel">
+
+
+                <!-- Coins -->
+
+                <div class="input-group">
+
+                    <label for="coinsInput">
+
+                        <span class="label-icon">
+                            🪙
+                        </span>
+
+                        Coin Denominations
+
+                    </label>
+
+
+                    <div class="input-box">
+
+                        <span class="input-prefix">
+                            [
+                        </span>
+
+                        <input type="text" id="coinsInput" value="1, 2, 5" placeholder="1, 2, 5">
+
+                        <span class="input-suffix">
+                            ]
+                        </span>
+
+                    </div>
+
+
+                    <small>
+                        Enter positive numbers separated by commas.
+                    </small>
+
+                </div>
+
+
+                <!-- Target -->
+
+                <div class="input-group">
+
+                    <label for="amountInput">
+
+                        <span class="label-icon">
+                            🎯
+                        </span>
+
+                        Target Amount
+
+                    </label>
+
+
+                    <div class="input-box amount-box">
+
+                        <span class="input-prefix">
+                            ₹
+                        </span>
+
+                        <input type="number" id="amountInput" value="11" min="0" max="100" placeholder="11">
+
+                    </div>
+
+
+                    <small>
+                        Maximum recommended amount: 100
+                    </small>
+
+                </div>
+
+
+                <!-- Presets -->
+
+                <div class="preset-group">
+
+                    <label>
+                        Quick Examples
+                    </label>
+
+
+                    <div class="preset-buttons">
+
+                        <button class="preset active" data-coins="1,2,5" data-amount="11">
+
+                            [1, 2, 5]
+                            <span>
+                                →
+                            </span>
+                            11
+
+                        </button>
+
+
+                        <button class="preset" data-coins="1,3,4" data-amount="6">
+
+                            [1, 3, 4]
+                            <span>
+                                →
+                            </span>
+                            6
+
+                        </button>
+
+
+                        <button class="preset" data-coins="1,5,10,25" data-amount="30">
+
+                            [1, 5, 10, 25]
+                            <span>
+                                →
+                            </span>
+                            30
+
+                        </button>
+
+
+                        <button class="preset random" id="randomButton">
+
+                            🎲 Random
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Validation -->
+
+                <div class="input-error" id="inputError">
+                </div>
+
+
+                <!-- Actions -->
+
+                <div class="main-actions">
+
+                    <button class="primary-button" id="calculateButton">
+
+                        <span>
+                            ▶
+                        </span>
+
+                        Calculate
+
+                    </button>
+
+
+                    <button class="secondary-button" id="stepButton">
+
+                        <span>
+                            ⏭
+                        </span>
+
+                        Step-by-Step
+
+                    </button>
+
+
+                    <button class="secondary-button" id="resetButton">
+
+                        <span>
+                            ↻
+                        </span>
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     PROBLEM EXPLANATION
+========================================================= -->
+
+        <section class="problem-section">
+
+            <div class="problem-card">
+
+                <div class="problem-header">
+
+                    <span class="card-label">
+                        CURRENT PROBLEM
+                    </span>
+
+                    <span class="problem-status" id="problemStatus">
+
+                        READY
+
+                    </span>
+
+                </div>
+
+
+                <div class="problem-content">
+
+                    <div class="problem-item">
+
+                        <span>
+                            COINS
+                        </span>
+
+                        <strong id="problemCoins">
+                            [1, 2, 5]
+                        </strong>
+
+                    </div>
+
+
+                    <div class="problem-divider">
+                        +
+                    </div>
+
+
+                    <div class="problem-item">
+
+                        <span>
+                            TARGET AMOUNT
+                        </span>
+
+                        <strong id="problemAmount">
+                            11
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="problem-question">
+
+                    <span>
+                        ?
+                    </span>
+
+                    <p id="problemQuestion">
+
+                        What is the minimum number of coins required
+                        to make <strong>11</strong>?
+
+                    </p>
+
+                </div>
+
+
+                <!-- Hidden until completed -->
+
+                <div class="hidden-answer" id="hiddenAnswer">
+
+                    <span>
+                        OPTIMAL SOLUTION
+                    </span>
+
+                    <strong id="hiddenSolution">
+                        5 + 5 + 1 = 11
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     DP CONCEPT
+========================================================= -->
+
+        <section class="concept-section">
+
+            <div class="concept-card">
+
+                <div class="concept-icon">
+                    ∑
+                </div>
+
+
+                <div class="concept-content">
+
+                    <span class="card-label">
+                        DYNAMIC PROGRAMMING
+                    </span>
+
+                    <h3>
+                        What are we calculating?
+                    </h3>
+
+                    <p>
+                        For every amount, we store the minimum number
+                        of coins needed to create that amount.
+                    </p>
+
+                </div>
+
+
+                <div class="concept-formula">
+
+                    <div>
+                        dp[amount]
+                    </div>
+
+                    <span>
+                        =
+                    </span>
+
+                    <div>
+                        minimum coins
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     EXECUTION CONTROLS
+========================================================= -->
+
+        <section class="execution-section">
+
+            <div class="execution-header">
+
+                <div>
+
+                    <span class="live-label">
+
+                        <span></span>
+
+                        LIVE DP EXECUTION
+
+                    </span>
+
+                    <h2 id="executionTitle">
+                        Ready to calculate
+                    </h2>
+
+                </div>
+
+
+                <div class="step-counter">
+
+                    <span>
+                        STEP
+                    </span>
+
+                    <strong id="currentStep">
+                        0
+                    </strong>
+
+                    <span>
+                        /
+                    </span>
+
+                    <span id="totalSteps">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Progress -->
+
+            <div class="progress-wrapper">
+
+                <div class="progress-bar" id="progressBar">
+                </div>
+
+            </div>
+
+
+            <!-- Speed -->
+
+            <div class="speed-control">
+
+                <span>
+                    🐢 Slow
+                </span>
+
+                <input type="range" id="speedSlider" min="1" max="5" value="3">
+
+                <span>
+                    Fast 🚀
+                </span>
+
+            </div>
+
+
+            <!-- Playback -->
+
+            <div class="playback-controls">
+
+                <button class="control-button" id="previousButton">
+
+                    ⏮
+                    Previous
+
+                </button>
+
+
+                <button class="control-button play-button" id="playButton">
+
+                    ▶
+                    Auto Play
+
+                </button>
+
+
+                <button class="control-button" id="pauseButton">
+
+                    ⏸
+                    Pause
+
+                </button>
+
+
+                <button class="control-button" id="nextButton">
+
+                    Next
+                    ⏭
+
+                </button>
+
+
+                <button class="control-button" id="restartButton">
+
+                    🔄
+                    Restart
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     COINS VISUALIZATION
+========================================================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    02
+                </span>
+
+                <div>
+
+                    <h2>
+                        Available Coins
+                    </h2>
+
+                    <p>
+                        Watch the algorithm test each denomination.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="coins-container" id="coinsContainer">
+
+                <!-- Generated dynamically -->
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     DP ARRAY
+========================================================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    03
+                </span>
+
+                <div>
+
+                    <h2>
+                        Dynamic Programming Array
+                    </h2>
+
+                    <p>
+                        Each cell stores the minimum number of coins
+                        needed to make that amount.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="dp-array-card">
+
+                <div class="dp-array-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            DP STATE
+                        </span>
+
+                        <h3>
+                            Minimum Coins
+                        </h3>
+
+                    </div>
+
+
+                    <div class="legend">
+
+                        <span>
+                            <i class="legend-dot unvisited"></i>
+                            Unvisited
+                        </span>
+
+                        <span>
+                            <i class="legend-dot current"></i>
+                            Current
+                        </span>
+
+                        <span>
+                            <i class="legend-dot checking"></i>
+                            Checking
+                        </span>
+
+                        <span>
+                            <i class="legend-dot updated"></i>
+                            Updated
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dp-array" id="dpArray">
+
+                    <!-- Generated by JavaScript -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     MAIN VISUALIZATION GRID
+========================================================= -->
+
+        <section class="visualization-grid" id="dp-table">
+
+
+            <!-- DP TABLE -->
+
+            <div class="visual-card dp-table-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            DYNAMIC PROGRAMMING
+                        </span>
+
+                        <h3>
+                            DP Table
+                        </h3>
+
+                    </div>
+
+
+                    <div class="table-status" id="tableStatus">
+
+                        IDLE
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table id="dpTable">
+
+                        <thead>
+
+                            <tr id="dpTableHeader">
+
+                                <th>
+                                    Amount
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr id="dpTableRow">
+
+                                <th>
+                                    dp[i]
+                                </th>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div class="table-explanation">
+
+                    <span>
+                        💡
+                    </span>
+
+                    <p id="tableExplanation">
+
+                        Start the algorithm to see DP states
+                        being calculated.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- LIVE EXPLANATION -->
+
+            <div class="visual-card explanation-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            ALGORITHM
+                        </span>
+
+                        <h3>
+                            What's Happening?
+                        </h3>
+
+                    </div>
+
+                    <span class="step-badge">
+                        STEP
+                    </span>
+
+                </div>
+
+
+                <div class="explanation-content">
+
+                    <div class="explanation-number" id="explanationNumber">
+
+                        01
+
+                    </div>
+
+
+                    <h3 id="explanationTitle">
+                        Ready to begin
+                    </h3>
+
+
+                    <p id="explanationText">
+
+                        Click Calculate to begin building
+                        the dynamic programming table.
+
+                    </p>
+
+
+                    <div class="current-operation" id="currentOperation">
+
+                        <span>
+                            CURRENT OPERATION
+                        </span>
+
+                        <strong>
+                            Waiting...
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     FORMULA ANIMATION
+========================================================= -->
+
+        <section class="section">
+
+            <div class="formula-card">
+
+                <div class="formula-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            LIVE FORMULA
+                        </span>
+
+                        <h3>
+                            DP Calculation
+                        </h3>
+
+                    </div>
+
+                    <span class="formula-status" id="formulaStatus">
+
+                        WAITING
+
+                    </span>
+
+                </div>
+
+
+                <div class="formula-steps" id="formulaSteps">
+
+                    <div class="formula-step">
+
+                        <span>
+                            dp[i]
+                        </span>
+
+                        <small>
+                            Current amount
+                        </small>
+
+                    </div>
+
+
+                    <div class="formula-arrow">
+                        ↓
+                    </div>
+
+
+                    <div class="formula-step">
+
+                        <span>
+                            Choose a coin
+                        </span>
+
+                        <small>
+                            Try each denomination
+                        </small>
+
+                    </div>
+
+
+                    <div class="formula-arrow">
+                        ↓
+                    </div>
+
+
+                    <div class="formula-step">
+
+                        <span>
+                            dp[i - coin] + 1
+                        </span>
+
+                        <small>
+                            Previous solution + coin
+                        </small>
+
+                    </div>
+
+
+                    <div class="formula-arrow">
+                        ↓
+                    </div>
+
+
+                    <div class="formula-step final-formula">
+
+                        <span>
+                            min(...)
+                        </span>
+
+                        <small>
+                            Choose the smallest
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="live-calculation" id="liveCalculation">
+
+                    Start execution to see the calculation.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     BACKTRACKING
+========================================================= -->
+
+        <section class="section" id="backtracking">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    04
+                </span>
+
+                <div>
+
+                    <h2>
+                        Backtracking the Solution
+                    </h2>
+
+                    <p>
+                        Trace the DP table backwards to find
+                        the coins used in the optimal solution.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="backtracking-card">
+
+                <div class="backtracking-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            SOLUTION RECONSTRUCTION
+                        </span>
+
+                        <h3>
+                            Find the Selected Coins
+                        </h3>
+
+                    </div>
+
+
+                    <span class="backtrack-status" id="backtrackStatus">
+
+                        WAITING
+
+                    </span>
+
+                </div>
+
+
+                <div class="backtrack-flow" id="backtrackFlow">
+
+                    <div class="backtrack-placeholder">
+
+                        <span>
+                            ←
+                        </span>
+
+                        <p>
+                            Complete the DP calculation to
+                            reconstruct the solution.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="backtrack-equations" id="backtrackEquations">
+
+                    <!-- Generated dynamically -->
+
+                </div>
+
+
+                <div class="backtrack-explanation">
+
+                    <span>
+                        💡
+                    </span>
+
+                    <p>
+
+                        We use the completed DP table to trace
+                        backwards from the target amount and
+                        identify which coins form the minimum solution.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     RESULT DASHBOARD
+========================================================= -->
+
+        <section class="result-section">
+
+            <div class="result-card">
+
+                <div class="result-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            FINAL RESULT
+                        </span>
+
+                        <h2 id="resultTitle">
+                            Optimal Solution
+                        </h2>
+
+                    </div>
+
+
+                    <div class="completion-icon" id="completionIcon">
+
+                        ✓
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-main">
+
+                    <div class="result-target">
+
+                        <span>
+                            TARGET AMOUNT
+                        </span>
+
+                        <strong id="resultAmount">
+                            11
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-equals">
+                        =
+                    </div>
+
+
+                    <div class="result-answer">
+
+                        <span>
+                            MINIMUM COINS
+                        </span>
+
+                        <strong id="resultMinimum">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="selected-coins">
+
+                    <span>
+                        COINS USED
+                    </span>
+
+                    <div id="selectedCoins" class="selected-coins-list">
+
+                        <span class="waiting">
+                            Run the algorithm first.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="success-message" id="successMessage">
+
+                    🎉 Optimal solution found!
+
+                </div>
+
+
+                <button class="copy-button" id="copyButton">
+
+                    📋 Copy Result
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     STATISTICS
+========================================================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    05
+                </span>
+
+                <div>
+
+                    <h2>
+                        Algorithm Statistics
+                    </h2>
+
+                    <p>
+                        Performance information from this execution.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="statistics-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🎯
+                    </div>
+
+                    <span>
+                        TARGET AMOUNT
+                    </span>
+
+                    <strong id="statAmount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🪙
+                    </div>
+
+                    <span>
+                        COIN TYPES
+                    </span>
+
+                    <strong id="statCoins">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🏆
+                    </div>
+
+                    <span>
+                        MINIMUM COINS
+                    </span>
+
+                    <strong id="statMinimum">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📊
+                    </div>
+
+                    <span>
+                        DP STATES
+                    </span>
+
+                    <strong id="statStates">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🔍
+                    </div>
+
+                    <span>
+                        COMPARISONS
+                    </span>
+
+                    <strong id="statComparisons">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ⏱
+                    </div>
+
+                    <span>
+                        EXECUTION TIME
+                    </span>
+
+                    <strong id="statTime">
+                        0 ms
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     COMPLEXITY
+========================================================= -->
+
+        <section class="section complexity-section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    06
+                </span>
+
+                <div>
+
+                    <h2>
+                        Complexity Analysis
+                    </h2>
+
+                    <p>
+                        Understand the efficiency of the DP approach.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="complexity-grid">
+
+
+                <div class="complexity-card">
+
+                    <div class="complexity-icon">
+                        ⏱
+                    </div>
+
+
+                    <div class="complexity-content">
+
+                        <span>
+                            TIME COMPLEXITY
+                        </span>
+
+                        <strong>
+                            O(n × amount)
+                        </strong>
+
+                        <p>
+
+                            For every amount, the algorithm checks
+                            every available coin.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="complexity-bar">
+
+                        <div style="width: 85%;"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="complexity-card">
+
+                    <div class="complexity-icon">
+                        💾
+                    </div>
+
+
+                    <div class="complexity-content">
+
+                        <span>
+                            SPACE COMPLEXITY
+                        </span>
+
+                        <strong>
+                            O(amount)
+                        </strong>
+
+                        <p>
+
+                            We store one DP value for every amount
+                            from 0 to the target amount.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="complexity-bar">
+
+                        <div style="width: 65%;"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     GREEDY VS DP
+========================================================= -->
+
+        <section class="section comparison-section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    07
+                </span>
+
+                <div>
+
+                    <h2>
+                        Greedy vs Dynamic Programming
+                    </h2>
+
+                    <p>
+                        Why does DP provide a more reliable solution?
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="comparison-table">
+
+                <div class="comparison-row comparison-header">
+
+                    <div>
+                        FEATURE
+                    </div>
+
+                    <div>
+                        GREEDY
+                    </div>
+
+                    <div>
+                        DYNAMIC PROGRAMMING
+                    </div>
+
+                </div>
+
+
+                <div class="comparison-row">
+
+                    <div>
+                        Strategy
+                    </div>
+
+                    <div>
+                        <span class="tag greedy">
+                            Local best choice
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="tag dp">
+                            Considers subproblems
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="comparison-row">
+
+                    <div>
+                        Always Optimal
+                    </div>
+
+                    <div>
+                        <span class="no">
+                            ✕ No
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="yes">
+                            ✓ Yes
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="comparison-row">
+
+                    <div>
+                        Reuses Results
+                    </div>
+
+                    <div>
+                        <span class="no">
+                            ✕ No
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="yes">
+                            ✓ Yes
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="comparison-row">
+
+                    <div>
+                        DP Array
+                    </div>
+
+                    <div>
+                        <span class="no">
+                            ✕ No
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="yes">
+                            ✓ Yes
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="comparison-row">
+
+                    <div>
+                        Time
+                    </div>
+
+                    <div>
+                        Depends
+                    </div>
+
+                    <div>
+                        O(n × amount)
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+     LEARNING SECTION
+========================================================= -->
+
+        <section class="section learning-section" id="learn">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    08
+                </span>
+
+                <div>
+
+                    <h2>
+                        Learn Dynamic Programming
+                    </h2>
+
+                    <p>
+                        Understand the concepts behind the visualization.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="learning-grid">
+
+
+                <div class="learning-card">
+
+                    <div class="learning-number">
+                        01
+                    </div>
+
+                    <div class="learning-icon">
+                        🧩
+                    </div>
+
+                    <h3>
+                        Optimal Substructure
+                    </h3>
+
+                    <p>
+
+                        The optimal solution to a problem can be
+                        constructed from optimal solutions of
+                        smaller subproblems.
+
+                    </p>
+
+                </div>
+
+
+                <div class="learning-card">
+
+                    <div class="learning-number">
+                        02
+                    </div>
+
+                    <div class="learning-icon">
+                        💾
+                    </div>
+
+                    <h3>
+                        Store Results
+                    </h3>
+
+                    <p>
+
+                        DP stores previously calculated results
+                        so that the same subproblem does not
+                        need to be solved again.
+
+                    </p>
+
+                </div>
+
+
+                <div class="learning-card">
+
+                    <div class="learning-number">
+                        03
+                    </div>
+
+                    <div class="learning-icon">
+                        🔄
+                    </div>
+
+                    <h3>
+                        State Transition
+                    </h3>
+
+                    <p>
+
+                        The transition
+                        dp[i] = min(dp[i], dp[i - coin] + 1)
+                        determines the best solution.
+
+                    </p>
+
+                </div>
+
+
+                <div class="learning-card">
+
+                    <div class="learning-number">
+                        04
+                    </div>
+
+                    <div class="learning-icon">
+                        🏆
+                    </div>
+
+                    <h3>
+                        Optimal Answer
+                    </h3>
+
+                    <p>
+
+                        After calculating all states,
+                        dp[target] contains the minimum number
+                        of coins required.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+     HOW DP WORKS MODAL
+========================================================= -->
+
+    <div class="modal-overlay" id="howItWorksModal">
+
+        <div class="modal">
+
+            <button class="modal-close" onclick="closeHowItWorks()">
+
+                ×
+
+            </button>
+
+
+            <div class="modal-icon">
+                DP
+            </div>
+
+
+            <h2>
+                How Dynamic Programming Works
+            </h2>
+
+
+            <p>
+
+                Instead of solving the same problem repeatedly,
+                Dynamic Programming stores the result of smaller
+                subproblems and reuses them.
+
+            </p>
+
+
+            <div class="modal-formula">
+
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+
+            </div>
+
+
+            <div class="modal-steps">
+
+
+                <div>
+
+                    <strong>
+                        1
+                    </strong>
+
+                    <span>
+                        Initialize dp[0] = 0.
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        2
+                    </strong>
+
+                    <span>
+                        Set all other values to infinity.
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        3
+                    </strong>
+
+                    <span>
+                        Try every coin for every amount.
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        4
+                    </strong>
+
+                    <span>
+                        Keep the minimum number of coins.
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        5
+                    </strong>
+
+                    <span>
+                        Backtrack to reconstruct the solution.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button class="primary-button" onclick="closeHowItWorks()">
+
+                Got It!
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+     TOAST
+========================================================= -->
+
+    <div class="toast" id="toast">
+
+        <span id="toastIcon">
+            ✓
+        </span>
+
+        <span id="toastMessage">
+            Success
+        </span>
+
+    </div>
+
+
+    <!-- =========================================================
+     FOOTER
+========================================================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            DP
+        </div>
+
+        <div>
+
+            <strong>
+                Making Change Visualizer
+            </strong>
+
+            <span>
+                Dynamic Programming Learning Platform
+            </span>
+
+        </div>
+
+        <div class="footer-right">
+            Built for DSA Learning
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

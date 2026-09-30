@@ -1,0 +1,4038 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recursive Factorial Visualizer</title>
+
+    <style>
+        /* =========================================================
+   RESET
+========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050711;
+            --card: rgba(15, 20, 38, 0.88);
+            --card2: #10162a;
+
+            --purple: #8b5cf6;
+            --purple2: #a78bfa;
+            --blue: #3b82f6;
+            --cyan: #22d3ee;
+            --green: #34d399;
+            --yellow: #fbbf24;
+            --red: #fb7185;
+
+            --white: #ffffff;
+            --text: #d7dbea;
+            --muted: #7d879e;
+
+            --border: rgba(139, 92, 246, 0.22);
+        }
+
+        /* =========================================================
+   BODY
+========================================================= */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                Segoe UI,
+                Arial,
+                sans-serif;
+
+            color: var(--white);
+
+            background:
+                radial-gradient(circle at 10% 10%,
+                    rgba(139, 92, 246, 0.18),
+                    transparent 30%),
+                radial-gradient(circle at 90% 20%,
+                    rgba(59, 130, 246, 0.12),
+                    transparent 30%),
+                radial-gradient(circle at 50% 90%,
+                    rgba(34, 211, 238, 0.07),
+                    transparent 35%),
+                var(--bg);
+
+            overflow-x: hidden;
+        }
+
+        /* =========================================================
+   SCROLLBAR
+========================================================= */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #03040a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--purple),
+                    var(--blue));
+
+            border-radius: 20px;
+        }
+
+        /* =========================================================
+   NAVBAR
+========================================================= */
+
+        .navbar {
+            height: 72px;
+
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+            background: rgba(5, 7, 17, 0.82);
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.06);
+
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(135deg,
+                    var(--purple),
+                    var(--blue));
+
+            box-shadow:
+                0 0 25px rgba(139, 92, 246, 0.35);
+
+            font-size: 21px;
+        }
+
+        .logo span:last-child {
+            color: var(--purple2);
+        }
+
+        .header-badge {
+            padding: 8px 15px;
+
+            border-radius: 50px;
+
+            color: var(--purple2);
+
+            background:
+                rgba(139, 92, 246, 0.08);
+
+            border:
+                1px solid rgba(139, 92, 246, 0.3);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+        /* =========================================================
+   HERO
+========================================================= */
+
+        .hero {
+            min-height: 430px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+
+            width: 500px;
+            height: 500px;
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(139, 92, 246, 0.2),
+                    transparent 65%);
+
+            animation: heroGlow 5s infinite;
+        }
+
+        .hero-content {
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 850px;
+        }
+
+        .hero-badge,
+        .section-label {
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            margin-bottom: 18px;
+
+            border-radius: 50px;
+
+            color: var(--purple2);
+
+            background:
+                rgba(139, 92, 246, 0.08);
+
+            border:
+                1px solid rgba(139, 92, 246, 0.3);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: clamp(50px, 8vw, 88px);
+
+            line-height: 1;
+
+            letter-spacing: -5px;
+
+            margin-bottom: 25px;
+
+            animation: fadeUp 0.8s ease;
+        }
+
+        .hero h1 span {
+            color: transparent;
+
+            background:
+                linear-gradient(90deg,
+                    var(--purple2),
+                    var(--blue),
+                    var(--cyan));
+
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: auto;
+
+            color: var(--muted);
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            animation: fadeUp 1s ease;
+        }
+
+        /* =========================================================
+   CONTAINER
+========================================================= */
+
+        .container {
+            width: min(1200px, 92%);
+
+            margin: auto;
+
+            padding-bottom: 100px;
+        }
+
+        /* =========================================================
+   HEADINGS
+========================================================= */
+
+        .section-heading {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .section-heading h2 {
+            font-size: 36px;
+
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        /* =========================================================
+   GLASS CARD
+========================================================= */
+
+        .glass-card {
+            background:
+                linear-gradient(145deg,
+                    rgba(20, 25, 45, 0.9),
+                    rgba(9, 13, 25, 0.9));
+
+            border:
+                1px solid var(--border);
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.35);
+
+            backdrop-filter: blur(18px);
+        }
+
+        /* =========================================================
+   CONTROL PANEL
+========================================================= */
+
+        .control-panel {
+            padding: 25px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 30px;
+
+            border-radius: 18px;
+
+            margin-bottom: 18px;
+        }
+
+        .input-group label,
+        .speed-group label {
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: var(--text);
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .input-wrapper {
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+
+            background: #080b16;
+
+            border:
+                1px solid rgba(139, 92, 246, 0.25);
+
+            border-radius: 11px;
+        }
+
+        .input-symbol {
+            padding-left: 15px;
+
+            color: var(--purple2);
+
+            font-family: monospace;
+
+            font-weight: bold;
+        }
+
+        #numberInput {
+            width: 100%;
+            height: 100%;
+
+            padding: 0 15px;
+
+            outline: none;
+            border: none;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .input-group small {
+            display: block;
+
+            margin-top: 7px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        /* =========================================================
+   SPEED
+========================================================= */
+
+        .speed-header {
+            display: flex;
+
+            justify-content: space-between;
+        }
+
+        #speedValue {
+            color: var(--purple2);
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .speed-control {
+            height: 52px;
+
+            padding: 0 12px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            background: #080b16;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.06);
+
+            border-radius: 11px;
+        }
+
+        .speed-control span {
+            font-size: 17px;
+        }
+
+        #speedSlider {
+            width: 100%;
+
+            accent-color: var(--purple);
+
+            cursor: pointer;
+        }
+
+        /* =========================================================
+   BUTTONS
+========================================================= */
+
+        .control-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin: 20px 0 25px;
+        }
+
+        .btn {
+            min-width: 115px;
+
+            padding: 13px 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 8px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            color: white;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn:disabled {
+            opacity: 0.45;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        .btn-start {
+            background:
+                linear-gradient(135deg,
+                    #7c3aed,
+                    #4f46e5);
+
+            box-shadow:
+                0 10px 30px rgba(124, 58, 237, 0.25);
+        }
+
+        .btn-pause {
+            background: #171e32;
+
+            border:
+                1px solid #303b55;
+        }
+
+        .btn-stop {
+            color: var(--red);
+
+            background:
+                rgba(251, 113, 133, 0.08);
+
+            border:
+                1px solid rgba(251, 113, 133, 0.25);
+        }
+
+        .btn-reset {
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* =========================================================
+   STATS
+========================================================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            min-height: 100px;
+
+            padding: 18px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 14px;
+
+            border-radius: 15px;
+
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+
+            border-color:
+                rgba(139, 92, 246, 0.5);
+        }
+
+        .stat-icon {
+            width: 43px;
+            height: 43px;
+
+            flex-shrink: 0;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 11px;
+
+            font-weight: 800;
+        }
+
+        .stat-icon.purple {
+            color: var(--purple2);
+
+            background:
+                rgba(139, 92, 246, 0.12);
+        }
+
+        .stat-icon.blue {
+            color: #60a5fa;
+
+            background:
+                rgba(59, 130, 246, 0.12);
+        }
+
+        .stat-icon.yellow {
+            color: var(--yellow);
+
+            background:
+                rgba(251, 191, 36, 0.1);
+        }
+
+        .stat-icon.green {
+            color: var(--green);
+
+            background:
+                rgba(52, 211, 153, 0.1);
+        }
+
+        .stat-label {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: var(--muted);
+
+            font-size: 8px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+        .stat-content strong {
+            font-size: 17px;
+
+            color: #ecebff;
+        }
+
+        /* =========================================================
+   MAIN VISUALIZATION
+========================================================= */
+
+        .visualization-grid {
+            display: grid;
+
+            grid-template-columns:
+                1.35fr 0.65fr;
+
+            gap: 20px;
+        }
+
+        .visualization-card {
+            min-height: 500px;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+        }
+
+        /* =========================================================
+   CARD HEADER
+========================================================= */
+
+        .card-header {
+            min-height: 70px;
+
+            padding: 17px 21px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .card-header h3 {
+            font-size: 15px;
+
+            margin-bottom: 4px;
+        }
+
+        .card-header p {
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .phase-indicator,
+        .stack-status,
+        .code-language {
+            padding: 6px 10px;
+
+            border-radius: 6px;
+
+            color: var(--purple2);
+
+            background:
+                rgba(139, 92, 246, 0.08);
+
+            border:
+                1px solid rgba(139, 92, 246, 0.22);
+
+            font-size: 8px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+        /* =========================================================
+   RECURSION TREE
+========================================================= */
+
+        .recursion-tree {
+            height: 425px;
+
+            padding: 22px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 8px;
+
+            overflow-y: auto;
+        }
+
+        .empty-state {
+            min-height: 330px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            color: var(--muted);
+        }
+
+        .empty-icon {
+            width: 58px;
+            height: 58px;
+
+            margin-bottom: 15px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 17px;
+
+            color: var(--purple2);
+
+            background:
+                rgba(139, 92, 246, 0.08);
+
+            border:
+                1px solid rgba(139, 92, 246, 0.2);
+
+            font-size: 24px;
+        }
+
+        .empty-state h4 {
+            color: #d5d9e5;
+
+            margin-bottom: 6px;
+
+            font-size: 13px;
+        }
+
+        .empty-state p {
+            font-size: 10px;
+        }
+
+        .empty-state strong {
+            color: var(--purple2);
+        }
+
+        /* =========================================================
+   RECURSION NODE
+========================================================= */
+
+        .recursion-node {
+            width: min(430px, 95%);
+
+            padding: 14px 18px;
+
+            position: relative;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(139, 92, 246, 0.12),
+                    rgba(59, 130, 246, 0.06));
+
+            border:
+                1px solid rgba(139, 92, 246, 0.28);
+
+            animation:
+                nodeAppear 0.45s ease;
+
+            transition: 0.3s;
+        }
+
+        .recursion-node.active {
+            border-color: var(--purple2);
+
+            box-shadow:
+                0 0 30px rgba(139, 92, 246, 0.3);
+
+            animation:
+                nodeAppear 0.45s ease,
+                nodePulse 1.2s infinite;
+        }
+
+        .recursion-node.base {
+            border-color: var(--green);
+
+            background:
+                rgba(52, 211, 153, 0.08);
+
+            box-shadow:
+                0 0 35px rgba(52, 211, 153, 0.2);
+        }
+
+        .recursion-node.returning {
+            border-color: var(--green);
+
+            background:
+                rgba(52, 211, 153, 0.08);
+
+            animation:
+                returnAnimation 0.6s ease;
+        }
+
+        .node-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+        }
+
+        .node-title {
+            color: #ddd6fe;
+
+            font-family: monospace;
+
+            font-size: 13px;
+
+            font-weight: 800;
+        }
+
+        .node-depth {
+            color: var(--muted);
+
+            font-size: 9px;
+        }
+
+        .node-operation {
+            color: #9ca6bb;
+
+            font-family: monospace;
+
+            font-size: 10px;
+        }
+
+        .node-result {
+            margin-top: 8px;
+
+            color: var(--green);
+
+            font-family: monospace;
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .node-status {
+            position: absolute;
+
+            top: -8px;
+            right: 12px;
+
+            padding: 3px 7px;
+
+            border-radius: 5px;
+
+            background: var(--purple);
+
+            font-size: 7px;
+            font-weight: 800;
+        }
+
+        .recursion-node.base .node-status {
+            background: var(--green);
+
+            color: #02130d;
+        }
+
+        .recursion-arrow {
+            height: 18px;
+
+            color: var(--purple2);
+
+            font-size: 18px;
+
+            animation:
+                arrowMove 0.7s infinite alternate;
+        }
+
+        /* =========================================================
+   CALL STACK
+========================================================= */
+
+        .call-stack {
+            height: 425px;
+
+            padding: 20px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+            overflow-y: auto;
+        }
+
+        .stack-item {
+            padding: 13px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            border-radius: 9px;
+
+            background:
+                rgba(255, 255, 255, 0.035);
+
+            border-left:
+                3px solid var(--purple);
+
+            animation:
+                stackPush 0.4s ease;
+        }
+
+        .stack-item.active {
+            background:
+                rgba(139, 92, 246, 0.12);
+
+            border-left-color:
+                var(--purple2);
+
+            box-shadow:
+                0 0 20px rgba(139, 92, 246, 0.1);
+        }
+
+        .stack-item strong {
+            color: #ddd6fe;
+
+            font-family: monospace;
+
+            font-size: 11px;
+        }
+
+        .stack-item span {
+            color: var(--muted);
+
+            font-size: 9px;
+        }
+
+        /* =========================================================
+   EXECUTION LOG
+========================================================= */
+
+        .execution-card {
+            margin-top: 20px;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+        }
+
+        .execution-log {
+            min-height: 220px;
+            max-height: 300px;
+
+            padding: 17px;
+
+            overflow-y: auto;
+        }
+
+        .empty-log {
+            height: 180px;
+
+            display: grid;
+            place-items: center;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .log-item {
+            padding: 10px 13px;
+
+            margin-bottom: 7px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(255, 255, 255, 0.035);
+
+            font-family: monospace;
+
+            font-size: 10px;
+
+            animation:
+                logAppear 0.35s ease;
+        }
+
+        .log-item.call {
+            border-left:
+                3px solid var(--purple);
+
+            color: #c4b5fd;
+        }
+
+        .log-item.base {
+            border-left:
+                3px solid var(--yellow);
+
+            color: #fcd34d;
+        }
+
+        .log-item.return {
+            border-left:
+                3px solid var(--green);
+
+            color: #6ee7b7;
+        }
+
+        .log-time {
+            margin-right: 12px;
+
+            color: #566077;
+
+            font-size: 8px;
+        }
+
+        /* =========================================================
+   LIVE
+========================================================= */
+
+        .live-indicator {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: var(--green);
+
+            font-size: 8px;
+            font-weight: bold;
+        }
+
+        .live-indicator span {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 12px var(--green);
+
+            animation:
+                livePulse 1.2s infinite;
+        }
+
+        /* =========================================================
+   CODE
+========================================================= */
+
+        .code-card {
+            margin-top: 20px;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+        }
+
+        .code-editor {
+            padding: 18px 0;
+
+            background: #070a12;
+
+            font-family:
+                Consolas,
+                "Courier New",
+                monospace;
+
+            overflow-x: auto;
+        }
+
+        .code-line {
+            min-height: 34px;
+
+            padding: 7px 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            transition: 0.25s;
+        }
+
+        .code-line.active {
+            background:
+                linear-gradient(90deg,
+                    rgba(139, 92, 246, 0.17),
+                    transparent);
+
+            border-left:
+                3px solid var(--purple);
+        }
+
+        .line-number {
+            width: 35px;
+
+            color: #414b60;
+
+            font-size: 10px;
+        }
+
+        .code-line code {
+            color: #cbd5e1;
+
+            font-size: 11px;
+        }
+
+        .keyword {
+            color: #c084fc;
+        }
+
+        .function {
+            color: #60a5fa;
+        }
+
+        .number {
+            color: var(--yellow);
+        }
+
+        /* =========================================================
+   FORMULA
+========================================================= */
+
+        .formula-section {
+            padding-top: 70px;
+
+            text-align: center;
+        }
+
+        .formula-section h2,
+        .example-section h2,
+        .complexity-section h2,
+        .how-section h2 {
+            margin-bottom: 25px;
+
+            font-size: 31px;
+        }
+
+        .formula-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+        }
+
+        .formula-card {
+            padding: 30px;
+
+            border-radius: 16px;
+        }
+
+        .formula-title {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            margin-bottom: 15px;
+        }
+
+        .formula-text {
+            color: #ddd6fe;
+
+            font-family: monospace;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .base-case-card {
+            border-color:
+                rgba(52, 211, 153, 0.25);
+        }
+
+        .base-case-card .formula-text {
+            color: var(--green);
+        }
+
+        /* =========================================================
+   EXAMPLE
+========================================================= */
+
+        .example-section {
+            margin-top: 25px;
+
+            padding: 35px 25px;
+
+            border-radius: 18px;
+
+            text-align: center;
+        }
+
+        .example-flow {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+        .example-step {
+            padding: 12px 15px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(139, 92, 246, 0.06);
+
+            border:
+                1px solid rgba(139, 92, 246, 0.25);
+
+            color: #ddd6fe;
+
+            font-family: monospace;
+
+            font-size: 12px;
+        }
+
+        .flow-arrow {
+            color: var(--purple2);
+
+            font-size: 17px;
+        }
+
+        .example-result {
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            color: var(--green);
+
+            background:
+                rgba(52, 211, 153, 0.08);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.25);
+
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        /* =========================================================
+   COMPLEXITY
+========================================================= */
+
+        .complexity-section {
+            padding-top: 70px;
+
+            text-align: center;
+        }
+
+        .complexity-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+        .complexity-card {
+            padding: 30px;
+
+            border-radius: 16px;
+
+            transition: 0.3s;
+        }
+
+        .complexity-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .complexity-icon {
+            width: 45px;
+            height: 45px;
+
+            margin:
+                0 auto 15px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 12px;
+
+            color: var(--purple2);
+
+            background:
+                rgba(139, 92, 246, 0.1);
+        }
+
+        .complexity-card span {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+        .complexity-card strong {
+            display: block;
+
+            margin-bottom: 10px;
+
+            font-family: monospace;
+
+            font-size: 38px;
+
+            color: #ddd6fe;
+        }
+
+        .complexity-card p {
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+        /* =========================================================
+   LEARNING
+========================================================= */
+
+        .how-section {
+            margin-top: 70px;
+
+            padding: 35px;
+
+            border-radius: 18px;
+        }
+
+        .learning-steps {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 12px;
+        }
+
+        .learning-step {
+            padding: 18px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255, 255, 255, 0.025);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.05);
+
+            transition: 0.3s;
+        }
+
+        .learning-step:hover {
+            transform: translateY(-5px);
+
+            border-color:
+                rgba(139, 92, 246, 0.3);
+        }
+
+        .step-number {
+            color: var(--purple2);
+
+            font-family: monospace;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            margin-bottom: 13px;
+        }
+
+        .learning-step h3 {
+            font-size: 12px;
+
+            margin-bottom: 7px;
+        }
+
+        .learning-step p {
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+   RESULT
+========================================================= */
+
+        .result-section {
+            margin-top: 55px;
+
+            padding: 45px 20px;
+
+            text-align: center;
+
+            border-radius: 20px;
+
+            border:
+                1px solid rgba(52, 211, 153, 0.25);
+
+            background:
+                radial-gradient(circle at center,
+                    rgba(52, 211, 153, 0.08),
+                    transparent 65%);
+
+            opacity: 0;
+
+            transform:
+                translateY(20px) scale(0.97);
+
+            pointer-events: none;
+
+            transition: 0.6s;
+        }
+
+        .result-section.show {
+            opacity: 1;
+
+            transform:
+                translateY(0) scale(1);
+
+            pointer-events: auto;
+        }
+
+        .success-icon {
+            width: 55px;
+            height: 55px;
+
+            margin:
+                0 auto 15px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+
+            color: var(--green);
+
+            background:
+                rgba(52, 211, 153, 0.1);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.3);
+
+            font-size: 24px;
+
+            animation:
+                successPop 0.7s ease;
+        }
+
+        .success-label {
+            color: var(--green);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 12px;
+        }
+
+        .big-result {
+            margin-bottom: 10px;
+
+            font-family: monospace;
+
+            font-size: clamp(30px, 6vw, 55px);
+
+            font-weight: 800;
+
+            text-shadow:
+                0 0 25px rgba(52, 211, 153, 0.3);
+        }
+
+        .result-section p {
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        /* =========================================================
+   FOOTER
+========================================================= */
+
+        footer {
+            padding: 40px 20px;
+
+            text-align: center;
+
+            border-top:
+                1px solid rgba(255, 255, 255, 0.06);
+
+            background:
+                rgba(3, 5, 11, 0.8);
+        }
+
+        .footer-logo {
+            font-size: 17px;
+
+            font-weight: 800;
+
+            margin-bottom: 7px;
+        }
+
+        .footer-logo span {
+            color: var(--purple2);
+        }
+
+        footer p {
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        /* =========================================================
+   ANIMATIONS
+========================================================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+        @keyframes heroGlow {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        @keyframes nodeAppear {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(-20px) scale(0.85);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0) scale(1);
+            }
+        }
+
+        @keyframes nodePulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 20px rgba(139, 92, 246, 0.2);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 40px rgba(139, 92, 246, 0.42);
+            }
+        }
+
+        @keyframes returnAnimation {
+
+            0% {
+                transform: scale(0.92);
+
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
+
+            100% {
+                transform: scale(1);
+
+                opacity: 1;
+            }
+        }
+
+        @keyframes arrowMove {
+
+            from {
+                transform: translateY(-2px);
+            }
+
+            to {
+                transform: translateY(3px);
+            }
+        }
+
+        @keyframes stackPush {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateX(25px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateX(0);
+            }
+        }
+
+        @keyframes logAppear {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateX(-15px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateX(0);
+            }
+        }
+
+        @keyframes livePulse {
+
+            0%,
+            100% {
+                opacity: 1;
+
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.3;
+
+                transform: scale(0.6);
+            }
+        }
+
+        @keyframes successPop {
+
+            0% {
+                transform: scale(0);
+            }
+
+            70% {
+                transform: scale(1.15);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* =========================================================
+   TABLET
+========================================================= */
+
+        @media(max-width:1000px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .visualization-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .learning-steps {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+        /* =========================================================
+   MOBILE
+========================================================= */
+
+        @media(max-width:650px) {
+
+            .navbar {
+                height: 64px;
+
+                padding: 0 18px;
+            }
+
+            .logo {
+                font-size: 17px;
+            }
+
+            .header-badge {
+                display: none;
+            }
+
+            .hero {
+                min-height: 370px;
+
+                padding: 55px 15px;
+            }
+
+            .hero h1 {
+                font-size: 50px;
+
+                letter-spacing: -3px;
+            }
+
+            .hero p {
+                font-size: 13px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .control-panel {
+                grid-template-columns: 1fr;
+
+                gap: 20px;
+
+                padding: 18px;
+            }
+
+            .control-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .formula-grid,
+            .complexity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .learning-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .example-flow {
+                flex-direction: column;
+            }
+
+            .visualization-card {
+                min-height: 450px;
+            }
+
+            .recursion-tree,
+            .call-stack {
+                height: 380px;
+            }
+
+            .recursion-node {
+                width: 96%;
+            }
+
+            .code-line {
+                padding-left: 10px;
+            }
+
+            .code-line code {
+                font-size: 9px;
+            }
+
+            .how-section {
+                padding: 25px 18px;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ↻
+            </div>
+
+            Recursion<span>Lab</span>
+
+        </div>
+
+        <div class="header-badge">
+            RECURSION ALGORITHM
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+     HERO
+===================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                🧠 RECURSION ALGORITHM
+            </div>
+
+            <h1>
+                Recursive
+                <span>Factorial</span>
+            </h1>
+
+            <p>
+                Visualize how recursion calls itself, reaches
+                the base case, and returns the final result.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <main class="container">
+
+
+        <!-- =====================================================
+     TITLE
+===================================================== -->
+
+        <section class="section-heading">
+
+            <div class="section-label">
+                LIVE EXECUTION
+            </div>
+
+            <h2>
+                Factorial Recursion
+            </h2>
+
+            <p>
+                Watch every recursive call and return happen
+                step by step.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================================
+     INPUT
+===================================================== -->
+
+        <section class="control-panel glass-card">
+
+            <div class="input-group">
+
+                <label>
+                    Enter a number
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-symbol">
+                        n =
+                    </span>
+
+                    <input id="numberInput" type="number" min="0" max="10" value="5">
+
+                </div>
+
+                <small>
+                    Enter a value between 0 and 10
+                </small>
+
+            </div>
+
+
+            <div class="speed-group">
+
+                <div class="speed-header">
+
+                    <label>
+                        Animation Speed
+                    </label>
+
+                    <span id="speedValue">
+                        Normal
+                    </span>
+
+                </div>
+
+                <div class="speed-control">
+
+                    <span>🐢</span>
+
+                    <input id="speedSlider" type="range" min="300" max="1800" value="800">
+
+                    <span>⚡</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     BUTTONS
+===================================================== -->
+
+        <div class="control-buttons">
+
+            <button id="startBtn" class="btn btn-start">
+
+                ▶ Start
+
+            </button>
+
+            <button id="pauseBtn" class="btn btn-pause">
+
+                Ⅱ Pause
+
+            </button>
+
+            <button id="stopBtn" class="btn btn-stop">
+
+                ■ Stop
+
+            </button>
+
+            <button id="resetBtn" class="btn btn-reset">
+
+                ↻ Reset
+
+            </button>
+
+        </div>
+
+
+        <!-- =====================================================
+     STATISTICS
+===================================================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card glass-card">
+
+                <div class="stat-icon purple">
+                    ƒ
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        CURRENT CALL
+                    </span>
+
+                    <strong id="currentCall">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card glass-card">
+
+                <div class="stat-icon blue">
+                    ↕
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        RECURSION DEPTH
+                    </span>
+
+                    <strong id="recursionDepth">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card glass-card">
+
+                <div class="stat-icon yellow">
+                    #
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        FUNCTION CALLS
+                    </span>
+
+                    <strong id="functionCalls">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card glass-card">
+
+                <div class="stat-icon green">
+                    =
+                </div>
+
+                <div class="stat-content">
+
+                    <span class="stat-label">
+                        FINAL RESULT
+                    </span>
+
+                    <strong id="finalResult">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     VISUALIZATION
+===================================================== -->
+
+        <section class="visualization-grid">
+
+
+            <!-- RECURSION FLOW -->
+
+            <div class="visualization-card glass-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            🌳 Recursion Flow
+                        </h3>
+
+                        <p>
+                            Watch the function go deeper
+                        </p>
+
+                    </div>
+
+                    <div id="phaseIndicator" class="phase-indicator">
+
+                        READY
+
+                    </div>
+
+                </div>
+
+
+                <div id="recursionTree" class="recursion-tree">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ↻
+                        </div>
+
+                        <h4>
+                            Ready to Visualize
+                        </h4>
+
+                        <p>
+                            Enter a number and click
+                            <strong>Start</strong>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CALL STACK -->
+
+            <div class="visualization-card glass-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            📚 Call Stack
+                        </h3>
+
+                        <p>
+                            Active recursive calls
+                        </p>
+
+                    </div>
+
+                    <div class="stack-status">
+                        STACK
+                    </div>
+
+                </div>
+
+
+                <div id="callStack" class="call-stack">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            📚
+                        </div>
+
+                        <h4>
+                            Stack Empty
+                        </h4>
+
+                        <p>
+                            Function calls will appear here
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     EXECUTION LOG
+===================================================== -->
+
+        <section class="execution-card glass-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h3>
+                        ⚙ Execution Log
+                    </h3>
+
+                    <p>
+                        Step-by-step algorithm execution
+                    </p>
+
+                </div>
+
+                <div class="live-indicator">
+
+                    <span></span>
+
+                    LIVE
+
+                </div>
+
+            </div>
+
+
+            <div id="executionLog" class="execution-log">
+
+                <div class="empty-log">
+                    Waiting for execution...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     CODE
+===================================================== -->
+
+        <section class="code-card glass-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h3>
+                        &lt;/&gt; Recursive Function
+                    </h3>
+
+                    <p>
+                        Watch the executing line
+                    </p>
+
+                </div>
+
+                <div class="code-language">
+                    JAVASCRIPT
+                </div>
+
+            </div>
+
+
+            <div class="code-editor">
+
+
+                <div class="code-line" data-line="1">
+
+                    <span class="line-number">
+                        1
+                    </span>
+
+                    <code>
+                <span class="keyword">
+                    function
+                </span>
+
+                <span class="function">
+                    factorial
+                </span>(n) {
+            </code>
+
+                </div>
+
+
+                <div class="code-line" data-line="2">
+
+                    <span class="line-number">
+                        2
+                    </span>
+
+                    <code>
+
+                &nbsp;&nbsp;
+
+                <span class="keyword">
+                    if
+                </span>
+
+                (n ===
+
+                <span class="number">
+                    0
+                </span>
+
+                ) {
+
+            </code>
+
+                </div>
+
+
+                <div class="code-line" data-line="3">
+
+                    <span class="line-number">
+                        3
+                    </span>
+
+                    <code>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span class="keyword">
+                    return
+                </span>
+
+                <span class="number">
+                    1
+                </span>;
+
+            </code>
+
+                </div>
+
+
+                <div class="code-line" data-line="4">
+
+                    <span class="line-number">
+                        4
+                    </span>
+
+                    <code>
+                &nbsp;&nbsp;}
+            </code>
+
+                </div>
+
+
+                <div class="code-line" data-line="5">
+
+                    <span class="line-number">
+                        5
+                    </span>
+
+                    <code>
+
+                &nbsp;&nbsp;
+
+                <span class="keyword">
+                    return
+                </span>
+
+                n *
+
+                <span class="function">
+                    factorial
+                </span>
+
+                (n -
+
+                <span class="number">
+                    1
+                </span>);
+
+            </code>
+
+                </div>
+
+
+                <div class="code-line" data-line="6">
+
+                    <span class="line-number">
+                        6
+                    </span>
+
+                    <code>
+                }
+            </code>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     FORMULA
+===================================================== -->
+
+        <section class="formula-section">
+
+            <div class="section-label">
+                THE LOGIC
+            </div>
+
+            <h2>
+                Recursive Formula
+            </h2>
+
+
+            <div class="formula-grid">
+
+
+                <div class="formula-card glass-card">
+
+                    <span class="formula-title">
+                        RECURSIVE CASE
+                    </span>
+
+                    <div class="formula-text">
+                        factorial(n)
+                        =
+                        n × factorial(n − 1)
+                    </div>
+
+                </div>
+
+
+                <div class="formula-card
+                   glass-card
+                   base-case-card">
+
+                    <span class="formula-title">
+                        BASE CASE
+                    </span>
+
+                    <div class="formula-text">
+                        factorial(0) = 1
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     EXAMPLE
+===================================================== -->
+
+        <section class="example-section glass-card">
+
+            <div class="section-label">
+                STEP-BY-STEP EXAMPLE
+            </div>
+
+            <h2>
+                How 5! is Calculated
+            </h2>
+
+
+            <div class="example-flow">
+
+                <div class="example-step">
+                    5!
+                </div>
+
+                <div class="flow-arrow">
+                    ↓
+                </div>
+
+                <div class="example-step">
+                    5 × 4!
+                </div>
+
+                <div class="flow-arrow">
+                    ↓
+                </div>
+
+                <div class="example-step">
+                    5 × 4 × 3!
+                </div>
+
+                <div class="flow-arrow">
+                    ↓
+                </div>
+
+                <div class="example-step">
+                    5 × 4 × 3 × 2!
+                </div>
+
+                <div class="flow-arrow">
+                    ↓
+                </div>
+
+                <div class="example-step">
+                    5 × 4 × 3 × 2 × 1!
+                </div>
+
+                <div class="flow-arrow">
+                    ↓
+                </div>
+
+                <div class="example-result">
+                    120
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     COMPLEXITY
+===================================================== -->
+
+        <section class="complexity-section">
+
+            <div class="section-label">
+                PERFORMANCE
+            </div>
+
+            <h2>
+                Time & Space Complexity
+            </h2>
+
+
+            <div class="complexity-grid">
+
+
+                <div class="complexity-card glass-card">
+
+                    <div class="complexity-icon">
+                        ⏱
+                    </div>
+
+                    <span>
+                        TIME COMPLEXITY
+                    </span>
+
+                    <strong>
+                        O(n)
+                    </strong>
+
+                    <p>
+                        There are n recursive calls before
+                        reaching the base case.
+                    </p>
+
+                </div>
+
+
+                <div class="complexity-card glass-card">
+
+                    <div class="complexity-icon">
+                        💾
+                    </div>
+
+                    <span>
+                        SPACE COMPLEXITY
+                    </span>
+
+                    <strong>
+                        O(n)
+                    </strong>
+
+                    <p>
+                        The recursion call stack can grow
+                        to n levels.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     HOW RECURSION WORKS
+===================================================== -->
+
+        <section class="how-section glass-card">
+
+            <div class="section-label">
+                LEARN
+            </div>
+
+            <h2>
+                How Recursion Works
+            </h2>
+
+
+            <div class="learning-steps">
+
+
+                <div class="learning-step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Function Calls Itself
+                    </h3>
+
+                    <p>
+                        A recursive function calls itself
+                        with a smaller problem.
+                    </p>
+
+                </div>
+
+
+                <div class="learning-step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Moves Toward Base Case
+                    </h3>
+
+                    <p>
+                        Each call gets closer to the
+                        stopping condition.
+                    </p>
+
+                </div>
+
+
+                <div class="learning-step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Base Case
+                    </h3>
+
+                    <p>
+                        factorial(0) returns 1 and
+                        stops recursion.
+                    </p>
+
+                </div>
+
+
+                <div class="learning-step">
+
+                    <div class="step-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Values Return
+                    </h3>
+
+                    <p>
+                        Each previous function receives
+                        the returned value.
+                    </p>
+
+                </div>
+
+
+                <div class="learning-step">
+
+                    <div class="step-number">
+                        05
+                    </div>
+
+                    <h3>
+                        Final Result
+                    </h3>
+
+                    <p>
+                        All returned values combine to
+                        produce the factorial.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     RESULT
+===================================================== -->
+
+        <section id="resultSection" class="result-section">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <div class="success-label">
+                EXECUTION COMPLETED
+            </div>
+
+            <div id="bigResult" class="big-result">
+
+                5! = 120
+
+            </div>
+
+            <p>
+                Recursion successfully reached the base case
+                and returned the final result.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+     FOOTER
+===================================================== -->
+
+    <footer>
+
+        <div class="footer-logo">
+            Recursion<span>Lab</span>
+        </div>
+
+        <p>
+            Learn algorithms visually.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        /* =========================================================
+           DOM
+        ========================================================= */
+
+        const numberInput =
+            document.getElementById("numberInput");
+
+        const startBtn =
+            document.getElementById("startBtn");
+
+        const pauseBtn =
+            document.getElementById("pauseBtn");
+
+        const stopBtn =
+            document.getElementById("stopBtn");
+
+        const resetBtn =
+            document.getElementById("resetBtn");
+
+        const speedSlider =
+            document.getElementById("speedSlider");
+
+        const speedValue =
+            document.getElementById("speedValue");
+
+        const currentCall =
+            document.getElementById("currentCall");
+
+        const recursionDepth =
+            document.getElementById("recursionDepth");
+
+        const functionCalls =
+            document.getElementById("functionCalls");
+
+        const finalResult =
+            document.getElementById("finalResult");
+
+        const recursionTree =
+            document.getElementById("recursionTree");
+
+        const callStack =
+            document.getElementById("callStack");
+
+        const executionLog =
+            document.getElementById("executionLog");
+
+        const phaseIndicator =
+            document.getElementById("phaseIndicator");
+
+        const resultSection =
+            document.getElementById("resultSection");
+
+        const bigResult =
+            document.getElementById("bigResult");
+
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        let number = 5;
+
+        let speed = 800;
+
+        let callSequence = [];
+
+        let stack = [];
+
+        let callIndex = 0;
+
+        let callCount = 0;
+
+        let maxDepth = 0;
+
+        let timer = null;
+
+        let running = false;
+
+        let paused = false;
+
+        let stopped = false;
+
+
+        /* =========================================================
+           SPEED
+        ========================================================= */
+
+        speedSlider.addEventListener(
+            "input",
+            function () {
+
+                speed =
+                    Number(this.value);
+
+                if (speed >= 1400) {
+
+                    speedValue.textContent =
+                        "Slow";
+
+                } else if (speed >= 850) {
+
+                    speedValue.textContent =
+                        "Normal";
+
+                } else if (speed >= 500) {
+
+                    speedValue.textContent =
+                        "Fast";
+
+                } else {
+
+                    speedValue.textContent =
+                        "Very Fast";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           START
+        ========================================================= */
+
+        startBtn.addEventListener(
+            "click",
+            start
+        );
+
+
+        function start() {
+
+            number =
+                Number(numberInput.value);
+
+            if (
+                Number.isNaN(number) ||
+                number < 0 ||
+                number > 10
+            ) {
+
+                alert(
+                    "Please enter a number between 0 and 10."
+                );
+
+                return;
+            }
+
+
+            clearTimeout(timer);
+
+
+            resetData();
+
+
+            running = true;
+
+            paused = false;
+
+            stopped = false;
+
+
+            startBtn.disabled = true;
+
+            pauseBtn.innerHTML =
+                "Ⅱ Pause";
+
+
+            resultSection.classList.remove(
+                "show"
+            );
+
+
+            clearVisualization();
+
+
+            phaseIndicator.textContent =
+                "CALLING";
+
+
+            buildSequence();
+
+
+            addLog(
+                `Starting factorial(${number})`,
+                "call"
+            );
+
+
+            animateCall();
+
+        }
+
+
+        /* =========================================================
+           BUILD SEQUENCE
+        ========================================================= */
+
+        function buildSequence() {
+
+            callSequence = [];
+
+            for (
+                let i = number;
+                i >= 0;
+                i--
+            ) {
+
+                callSequence.push(i);
+
+            }
+
+        }
+
+
+        /* =========================================================
+           RECURSIVE CALL ANIMATION
+        ========================================================= */
+
+        function animateCall() {
+
+            if (stopped) {
+                return;
+            }
+
+            if (paused) {
+                return;
+            }
+
+
+            if (
+                callIndex >=
+                callSequence.length
+            ) {
+
+                startUnwind();
+
+                return;
+            }
+
+
+            const value =
+                callSequence[callIndex];
+
+
+            callCount++;
+
+            const depth =
+                number - value + 1;
+
+
+            maxDepth =
+                Math.max(
+                    maxDepth,
+                    depth
+                );
+
+
+            stack.push({
+                value: value,
+                depth: depth
+            });
+
+
+            updateStats(
+                value,
+                depth
+            );
+
+
+            addNode(
+                value,
+                depth
+            );
+
+
+            updateStack();
+
+
+            if (value === 0) {
+
+                phaseIndicator.textContent =
+                    "BASE CASE";
+
+                highlightCode(3);
+
+                addLog(
+                    "BASE CASE → factorial(0) = 1",
+                    "base"
+                );
+
+            } else {
+
+                phaseIndicator.textContent =
+                    "CALLING";
+
+                highlightCode(5);
+
+                addLog(
+                    `Calling factorial(${value})`,
+                    "call"
+                );
+
+            }
+
+
+            callIndex++;
+
+
+            timer =
+                setTimeout(
+                    animateCall,
+                    speed
+                );
+
+        }
+
+
+        /* =========================================================
+           ADD RECURSION NODE
+        ========================================================= */
+
+        function addNode(
+            value,
+            depth
+        ) {
+
+            const empty =
+                recursionTree.querySelector(
+                    ".empty-state"
+                );
+
+            if (empty) {
+                empty.remove();
+            }
+
+
+            if (
+                recursionTree.querySelector(
+                    ".recursion-node"
+                )
+            ) {
+
+                const arrow =
+                    document.createElement(
+                        "div"
+                    );
+
+                arrow.className =
+                    "recursion-arrow";
+
+                arrow.textContent =
+                    "↓";
+
+                recursionTree.appendChild(
+                    arrow
+                );
+
+            }
+
+
+            const node =
+                document.createElement(
+                    "div"
+                );
+
+
+            node.className =
+                "recursion-node active";
+
+
+            if (value === 0) {
+
+                node.classList.add(
+                    "base"
+                );
+
+            }
+
+
+            node.innerHTML = `
+
+        <div class="node-top">
+
+            <div class="node-title">
+                factorial(${value})
+            </div>
+
+            <div class="node-depth">
+                Depth ${depth}
+            </div>
+
+        </div>
+
+        <div class="node-operation">
+
+            ${value === 0
+
+                    ? "n === 0 → return 1"
+
+                    : `return ${value} × factorial(${value - 1})`
+
+                }
+
+        </div>
+
+        <div class="node-status">
+
+            ${value === 0
+                    ? "BASE CASE"
+                    : "CALL"
+                }
+
+        </div>
+
+    `;
+
+
+            const oldNodes =
+                recursionTree.querySelectorAll(
+                    ".recursion-node"
+                );
+
+
+            oldNodes.forEach(
+                oldNode => {
+
+                    oldNode.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            recursionTree.appendChild(
+                node
+            );
+
+
+            recursionTree.scrollTop =
+                recursionTree.scrollHeight;
+
+        }
+
+
+        /* =========================================================
+           CALL STACK
+        ========================================================= */
+
+        function updateStack() {
+
+            callStack.innerHTML = "";
+
+
+            if (stack.length === 0) {
+
+                callStack.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+                <h4>
+                    Stack Empty
+                </h4>
+
+                <p>
+                    Function calls will appear here
+                </p>
+
+            </div>
+
+        `;
+
+                return;
+            }
+
+
+            stack
+                .slice()
+                .reverse()
+                .forEach(
+                    (item, index) => {
+
+                        const element =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        element.className =
+                            "stack-item";
+
+
+                        if (index === 0) {
+
+                            element.classList.add(
+                                "active"
+                            );
+
+                        }
+
+
+                        element.innerHTML = `
+
+                    <strong>
+                        factorial(${item.value})
+                    </strong>
+
+                    <span>
+                        Depth ${item.depth}
+                    </span>
+
+                `;
+
+
+                        callStack.appendChild(
+                            element
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /* =========================================================
+           UNWIND
+        ========================================================= */
+
+        function startUnwind() {
+
+            phaseIndicator.textContent =
+                "UNWINDING";
+
+
+            addLog(
+                "Base case reached — returning upward",
+                "base"
+            );
+
+
+            timer =
+                setTimeout(
+                    unwind,
+                    speed
+                );
+
+        }
+
+
+        function unwind() {
+
+            if (stopped) {
+                return;
+            }
+
+            if (paused) {
+                return;
+            }
+
+
+            if (stack.length === 0) {
+
+                finish();
+
+                return;
+            }
+
+
+            const item =
+                stack[stack.length - 1];
+
+
+            const value =
+                item.value;
+
+
+            const result =
+                factorial(value);
+
+
+            currentCall.textContent =
+                `factorial(${value})`;
+
+
+            recursionDepth.textContent =
+                item.depth;
+
+
+            phaseIndicator.textContent =
+                "RETURNING";
+
+
+            highlightCode(
+                value === 0
+                    ? 3
+                    : 5
+            );
+
+
+            addLog(
+                `Returning ${result} from factorial(${value})`,
+                "return"
+            );
+
+
+            /*
+               Find node
+            */
+
+            const nodes =
+                recursionTree.querySelectorAll(
+                    ".recursion-node"
+                );
+
+
+            const node =
+                nodes[value === number
+                    ? 0
+                    : number - value];
+
+
+            if (node) {
+
+                nodes.forEach(
+                    n => {
+
+                        n.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                node.classList.add(
+                    "returning"
+                );
+
+
+                node.classList.add(
+                    "active"
+                );
+
+
+                let resultElement =
+                    node.querySelector(
+                        ".node-result"
+                    );
+
+
+                if (!resultElement) {
+
+                    resultElement =
+                        document.createElement(
+                            "div"
+                        );
+
+                    resultElement.className =
+                        "node-result";
+
+                    node.appendChild(
+                        resultElement
+                    );
+
+                }
+
+
+                resultElement.textContent =
+                    `↩ returns ${result}`;
+
+            }
+
+
+            stack.pop();
+
+
+            updateStack();
+
+
+            timer =
+                setTimeout(
+                    unwind,
+                    speed
+                );
+
+        }
+
+
+        /* =========================================================
+           FACTORIAL
+        ========================================================= */
+
+        function factorial(n) {
+
+            if (n <= 1) {
+                return 1;
+            }
+
+            return n *
+                factorial(n - 1);
+
+        }
+
+
+        /* =========================================================
+           FINISH
+        ========================================================= */
+
+        function finish() {
+
+            clearTimeout(timer);
+
+
+            running = false;
+
+            paused = false;
+
+
+            startBtn.disabled =
+                false;
+
+
+            pauseBtn.innerHTML =
+                "Ⅱ Pause";
+
+
+            phaseIndicator.textContent =
+                "COMPLETED";
+
+
+            const result =
+                factorial(number);
+
+
+            currentCall.textContent =
+                `factorial(${number})`;
+
+
+            recursionDepth.textContent =
+                maxDepth;
+
+
+            functionCalls.textContent =
+                callCount;
+
+
+            finalResult.textContent =
+                result;
+
+
+            bigResult.textContent =
+                `${number}! = ${result}`;
+
+
+            resultSection.classList.add(
+                "show"
+            );
+
+
+            addLog(
+                `✓ Execution Completed — ${number}! = ${result}`,
+                "return"
+            );
+
+
+            highlightCode(5);
+
+        }
+
+
+        /* =========================================================
+           PAUSE
+        ========================================================= */
+
+        pauseBtn.addEventListener(
+            "click",
+            function () {
+
+                if (!running) {
+                    return;
+                }
+
+
+                if (!paused) {
+
+                    paused = true;
+
+                    clearTimeout(timer);
+
+                    phaseIndicator.textContent =
+                        "PAUSED";
+
+                    pauseBtn.innerHTML =
+                        "▶ Resume";
+
+
+                    addLog(
+                        "Execution paused",
+                        "call"
+                    );
+
+                } else {
+
+                    paused = false;
+
+                    pauseBtn.innerHTML =
+                        "Ⅱ Pause";
+
+
+                    phaseIndicator.textContent =
+                        "RUNNING";
+
+
+                    addLog(
+                        "Execution resumed",
+                        "call"
+                    );
+
+
+                    /*
+                       Continue correct phase
+                    */
+
+                    if (
+                        stack.length <
+                        callSequence.length
+                    ) {
+
+                        animateCall();
+
+                    } else {
+
+                        unwind();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           STOP
+        ========================================================= */
+
+        stopBtn.addEventListener(
+            "click",
+            function () {
+
+                clearTimeout(timer);
+
+                stopped = true;
+
+                running = false;
+
+                paused = false;
+
+                startBtn.disabled =
+                    false;
+
+                phaseIndicator.textContent =
+                    "STOPPED";
+
+                addLog(
+                    "Execution stopped",
+                    "call"
+                );
+
+            }
+        );
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        resetBtn.addEventListener(
+            "click",
+            reset
+        );
+
+
+        function reset() {
+
+            clearTimeout(timer);
+
+            resetData();
+
+            clearVisualization();
+
+
+            running = false;
+
+            paused = false;
+
+            stopped = false;
+
+
+            startBtn.disabled =
+                false;
+
+
+            pauseBtn.innerHTML =
+                "Ⅱ Pause";
+
+
+            phaseIndicator.textContent =
+                "READY";
+
+
+            currentCall.textContent =
+                "—";
+
+
+            recursionDepth.textContent =
+                "0";
+
+
+            functionCalls.textContent =
+                "0";
+
+
+            finalResult.textContent =
+                "—";
+
+
+            resultSection.classList.remove(
+                "show"
+            );
+
+
+            executionLog.innerHTML = `
+
+        <div class="empty-log">
+            Waiting for execution...
+        </div>
+
+    `;
+
+
+            highlightCode(null);
+
+        }
+
+
+        /* =========================================================
+           RESET DATA
+        ========================================================= */
+
+        function resetData() {
+
+            callSequence = [];
+
+            stack = [];
+
+            callIndex = 0;
+
+            callCount = 0;
+
+            maxDepth = 0;
+
+        }
+
+
+        /* =========================================================
+           CLEAR VISUALIZATION
+        ========================================================= */
+
+        function clearVisualization() {
+
+            recursionTree.innerHTML = `
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                ↻
+            </div>
+
+            <h4>
+                Ready to Visualize
+            </h4>
+
+            <p>
+                Enter a number and click
+                <strong>Start</strong>
+            </p>
+
+        </div>
+
+    `;
+
+
+            callStack.innerHTML = `
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                📚
+            </div>
+
+            <h4>
+                Stack Empty
+            </h4>
+
+            <p>
+                Function calls will appear here
+            </p>
+
+        </div>
+
+    `;
+
+        }
+
+
+        /* =========================================================
+           STATS
+        ========================================================= */
+
+        function updateStats(
+            value,
+            depth
+        ) {
+
+            currentCall.textContent =
+                `factorial(${value})`;
+
+            recursionDepth.textContent =
+                depth;
+
+            functionCalls.textContent =
+                callCount;
+
+        }
+
+
+        /* =========================================================
+           EXECUTION LOG
+        ========================================================= */
+
+        function addLog(
+            message,
+            type
+        ) {
+
+            const empty =
+                executionLog.querySelector(
+                    ".empty-log"
+                );
+
+
+            if (empty) {
+                empty.remove();
+            }
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                `log-item ${type}`;
+
+
+            const time =
+                new Date()
+                    .toLocaleTimeString(
+                        [],
+                        {
+                            minute: "2-digit",
+                            second: "2-digit"
+                        }
+                    );
+
+
+            item.innerHTML = `
+
+        <span class="log-time">
+            ${time}
+        </span>
+
+        ${message}
+
+    `;
+
+
+            executionLog.appendChild(
+                item
+            );
+
+
+            executionLog.scrollTop =
+                executionLog.scrollHeight;
+
+        }
+
+
+        /* =========================================================
+           CODE HIGHLIGHT
+        ========================================================= */
+
+        function highlightCode(
+            lineNumber
+        ) {
+
+            const lines =
+                document.querySelectorAll(
+                    ".code-line"
+                );
+
+
+            lines.forEach(
+                line => {
+
+                    line.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            if (lineNumber === null) {
+                return;
+            }
+
+
+            const line =
+                document.querySelector(
+                    `.code-line[data-line="${lineNumber}"]`
+                );
+
+
+            if (line) {
+
+                line.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           ENTER KEY
+        ========================================================= */
+
+        numberInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    start();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           INPUT LIMIT
+        ========================================================= */
+
+        numberInput.addEventListener(
+            "input",
+            function () {
+
+                if (
+                    Number(this.value) > 10
+                ) {
+
+                    this.value = 10;
+
+                }
+
+                if (
+                    Number(this.value) < 0
+                ) {
+
+                    this.value = 0;
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           KEYBOARD SHORTCUTS
+        ========================================================= */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.code === "Space"
+                ) {
+
+                    event.preventDefault();
+
+                    if (!running) {
+
+                        start();
+
+                    } else {
+
+                        pauseBtn.click();
+
+                    }
+
+                }
+
+
+                if (
+                    event.key.toLowerCase() === "r"
+                ) {
+
+                    reset();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           INITIALIZE
+        ========================================================= */
+
+        speed =
+            Number(speedSlider.value);
+
+        console.log(
+            "Recursive Factorial Visualizer Ready!"
+        );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iteration Visualizer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+
+        <div class="badge">
+            ⚡ ALGORITHM LAB
+        </div>
+
+        <h1>
+            ITERATION <span>VISUALIZER</span>
+        </h1>
+
+        <p>
+            Understand loops through interactive animation
+        </p>
+
+    </header>
+
+
+    <main class="container">
+
+        <!-- Input Section -->
+        <section class="card control-card">
+
+            <h2>⚙ Iteration Controls</h2>
+
+            <div class="input-row">
+
+                <div class="input-group">
+                    <label>Start Value</label>
+
+                    <input type="number" id="startInput" value="1">
+                </div>
+
+
+                <div class="input-group">
+                    <label>End Value</label>
+
+                    <input type="number" id="endInput" value="10">
+                </div>
+
+
+                <div class="input-group">
+                    <label>Step</label>
+
+                    <input type="number" id="stepInput" value="1">
+                </div>
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button id="startBtn" class="btn start">
+                    ▶ Start
+                </button>
+
+                <button id="pauseBtn" class="btn pause">
+                    ⏸ Pause
+                </button>
+
+                <button id="stepBtn" class="btn step">
+                    ⏭ Step
+                </button>
+
+                <button id="resetBtn" class="btn reset">
+                    ↻ Reset
+                </button>
+
+            </div>
+
+
+            <div class="speed-control">
+
+                <label>
+                    Animation Speed:
+                    <strong id="speedValue">1x</strong>
+                </label>
+
+                <input type="range" id="speedSlider" min="0.5" max="3" step="0.5" value="1">
+
+            </div>
+
+        </section>
+
+
+        <!-- Loop Code -->
+        <section class="card code-card">
+
+            <h2>💻 Current Loop</h2>
+
+            <pre><code>
+for (let i = start; i <= end; i += step) {
+
+    console.log(i);
+
+}
+            </code></pre>
+
+        </section>
+
+
+        <!-- Visualization -->
+        <section class="card visualization-card">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>🔄 Iteration Visualization</h2>
+
+                    <p>
+                        Watch each iteration execute
+                        step-by-step.
+                    </p>
+                </div>
+
+                <div id="status" class="status">
+                    READY
+                </div>
+
+            </div>
+
+
+            <!-- Iteration Boxes -->
+            <div id="iterationContainer" class="iteration-container">
+            </div>
+
+
+            <!-- Current Pointer -->
+            <div class="pointer-area">
+
+                <div class="pointer">
+                    ↓
+                </div>
+
+                <div>
+                    Current Iteration
+                </div>
+
+                <strong id="currentIteration">
+                    —
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- Statistics -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <span>🔢</span>
+
+                <p>
+                    ITERATION
+                </p>
+
+                <h3 id="iterationStat">
+                    0
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>📊</span>
+
+                <p>
+                    TOTAL ITERATIONS
+                </p>
+
+                <h3 id="totalStat">
+                    0
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>⚡</span>
+
+                <p>
+                    CURRENT VALUE
+                </p>
+
+                <h3 id="valueStat">
+                    —
+                </h3>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>⏱</span>
+
+                <p>
+                    EXECUTION TIME
+                </p>
+
+                <h3 id="timeStat">
+                    0.00s
+                </h3>
+
+            </div>
+
+        </section>
+
+
+        <!-- Current Operation -->
+        <section class="card operation-card">
+
+            <div class="operation-icon">
+                🔍
+            </div>
+
+            <div>
+
+                <span>
+                    CURRENT OPERATION
+                </span>
+
+                <h2 id="operation">
+                    Ready to begin
+                </h2>
+
+                <p id="description">
+                    Press Start to execute
+                    the loop.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Explanation -->
+        <section class="information-grid">
+
+            <div class="card info-card">
+
+                <h2>
+                    🔄 What is Iteration?
+                </h2>
+
+                <p>
+                    Iteration means repeatedly executing
+                    a block of instructions until a
+                    particular condition becomes false.
+                </p>
+
+            </div>
+
+
+            <div class="card info-card">
+
+                <h2>
+                    📚 How It Works
+                </h2>
+
+                <ul>
+
+                    <li>
+                        Initialize the loop variable
+                    </li>
+
+                    <li>
+                        Check the condition
+                    </li>
+
+                    <li>
+                        Execute the loop body
+                    </li>
+
+                    <li>
+                        Update the variable
+                    </li>
+
+                    <li>
+                        Repeat until the condition is false
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+        <!-- Complexity -->
+        <section class="card complexity-card">
+
+            <h2>
+                📈 Iteration Complexity
+            </h2>
+
+            <div class="complexity-grid">
+
+                <div>
+                    <span>
+                        Time Complexity
+                    </span>
+
+                    <strong>
+                        O(n)
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>
+                        Space Complexity
+                    </span>
+
+                    <strong>
+                        O(1)
+                    </strong>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Completion -->
+    <div id="completion" class="completion hidden">
+
+        <div class="completion-box">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>
+                ITERATION COMPLETE
+            </h2>
+
+            <p>
+                All loop iterations have been executed.
+            </p>
+
+            <button id="closeCompletion" class="btn start">
+
+                Continue
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        <h3>
+            ITERATION VISUALIZER
+        </h3>
+
+        <p>
+            Learn loops through animation
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

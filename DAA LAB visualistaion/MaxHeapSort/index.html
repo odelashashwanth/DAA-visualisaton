@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Heap Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
+    <header class="hero">
+        <div class="badge">ALGORITHM LAB • DATA STRUCTURES</div>
+        <h1>MAX <span>HEAP</span> VISUALIZER</h1>
+        <p>Build • Heapify • Extract • Sort • Understand</p>
+    </header>
+
+    <main class="container">
+
+        <!-- INPUT -->
+        <section class="glass input-card">
+            <div>
+                <label>Enter Array</label>
+                <input id="arrayInput" type="text" value="50, 30, 40, 10, 20, 35, 25"
+                    placeholder="Example: 50, 30, 40, 10">
+            </div>
+
+            <div class="control-buttons">
+                <button class="btn primary" onclick="loadArray()">Load Array</button>
+                <button class="btn random" onclick="generateRandom()">Random</button>
+                <button class="btn danger" onclick="clearHeap()">Clear</button>
+            </div>
+        </section>
+
+        <!-- OPERATIONS -->
+        <section class="glass operations">
+            <h2>Heap Operations</h2>
+
+            <div class="operation-grid">
+                <button class="operation" onclick="insertValue()">
+                    <span>➕</span>
+                    <b>Insert</b>
+                    <small>Heapify Up</small>
+                </button>
+
+                <button class="operation" onclick="deleteMax()">
+                    <span>🗑️</span>
+                    <b>Delete Max</b>
+                    <small>Heapify Down</small>
+                </button>
+
+                <button class="operation" onclick="extractMax()">
+                    <span>⬆️</span>
+                    <b>Extract Max</b>
+                    <small>Remove Root</small>
+                </button>
+
+                <button class="operation" onclick="buildHeap()">
+                    <span>🏗️</span>
+                    <b>Build Heap</b>
+                    <small>O(n)</small>
+                </button>
+
+                <button class="operation heap-sort-btn" onclick="heapSort()">
+                    <span>⚡</span>
+                    <b>Heap Sort</b>
+                    <small>O(n log n)</small>
+                </button>
+            </div>
+        </section>
+
+        <!-- STATUS -->
+        <section class="status-row">
+            <div id="heapStatus" class="status valid">
+                🟢 Valid Max Heap
+            </div>
+
+            <div class="operation-status">
+                Operation:
+                <strong id="currentOperation">Ready</strong>
+            </div>
+        </section>
+
+        <!-- VISUALIZATION -->
+        <section class="glass visual-card">
+
+            <div class="section-title">
+                <div>
+                    <span class="mini-label">LIVE VISUALIZATION</span>
+                    <h2>Binary Heap Tree</h2>
+                </div>
+
+                <div class="speed-control">
+                    <label>Animation Speed</label>
+                    <input id="speedSlider" type="range" min="100" max="1500" value="650">
+                    <span id="speedValue">650ms</span>
+                </div>
+            </div>
+
+            <div id="tree" class="tree"></div>
+
+            <div class="array-title">
+                <span>ARRAY REPRESENTATION</span>
+            </div>
+
+            <div id="arrayView" class="array-view"></div>
+
+        </section>
+
+        <!-- CONTROLS -->
+        <section class="glass playback">
+            <button onclick="playAnimation()" class="play">▶ Play</button>
+            <button onclick="pauseAnimation()" class="pause">⏸ Pause</button>
+            <button onclick="stepAnimation()" class="step">⏭ Step</button>
+            <button onclick="resetVisualization()" class="reset">↻ Reset</button>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats-grid">
+
+            <div class="stat glass">
+                <span>📦</span>
+                <small>HEAP SIZE</small>
+                <strong id="heapSize">0</strong>
+            </div>
+
+            <div class="stat glass">
+                <span>👑</span>
+                <small>MAX VALUE</small>
+                <strong id="maxValue">—</strong>
+            </div>
+
+            <div class="stat glass">
+                <span>📉</span>
+                <small>MIN VALUE</small>
+                <strong id="minValue">—</strong>
+            </div>
+
+            <div class="stat glass">
+                <span>🔍</span>
+                <small>COMPARISONS</small>
+                <strong id="comparisons">0</strong>
+            </div>
+
+            <div class="stat glass">
+                <span>🔄</span>
+                <small>SWAPS</small>
+                <strong id="swaps">0</strong>
+            </div>
+
+            <div class="stat glass">
+                <span>⚙️</span>
+                <small>OPERATIONS</small>
+                <strong id="operations">0</strong>
+            </div>
+
+            <div class="stat glass">
+                <span>⏱️</span>
+                <small>EXECUTION TIME</small>
+                <strong id="executionTime">0.00 ms</strong>
+            </div>
+
+            <div class="stat glass">
+                <span>🎯</span>
+                <small>CURRENT STEP</small>
+                <strong id="currentStep">Ready</strong>
+            </div>
+
+        </section>
+
+        <!-- EXPLANATION -->
+        <section class="glass explanation">
+
+            <div class="section-title">
+                <div>
+                    <span class="mini-label">ALGORITHM GUIDE</span>
+                    <h2>What's Happening?</h2>
+                </div>
+            </div>
+
+            <div id="explanationText" class="explanation-content">
+                <div class="explanation-icon">🚀</div>
+                <div>
+                    <h3>Ready to visualize</h3>
+                    <p>
+                        Load an array and choose an operation to see the
+                        Max Heap algorithm step-by-step.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- COMPLEXITY -->
+        <section class="glass complexity">
+
+            <div class="section-title">
+                <div>
+                    <span class="mini-label">ANALYSIS</span>
+                    <h2>Time Complexity</h2>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Best</th>
+                            <th>Average</th>
+                            <th>Worst</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Insert</td>
+                            <td>O(1)</td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Delete Max</td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Extract Max</td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Build Heap</td>
+                            <td>O(n)</td>
+                            <td>O(n)</td>
+                            <td>O(n)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Heap Sort</td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="space-box">
+                <h3>Space Complexity</h3>
+
+                <div class="space-items">
+                    <div>
+                        <b>O(n)</b>
+                        <span>Heap Storage</span>
+                    </div>
+
+                    <div>
+                        <b>O(1)</b>
+                        <span>Heap Sort Auxiliary Space</span>
+                    </div>
+
+                    <div>
+                        <b>O(log n)</b>
+                        <span>Recursive Call Stack</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <b>Execution Time ≠ Big-O</b>
+                <p>
+                    Execution time is measured on your browser using
+                    <code>performance.now()</code>. It depends on hardware,
+                    browser, system load and input size. Big-O describes
+                    how the algorithm grows theoretically.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- EDUCATION -->
+        <section class="glass education">
+
+            <div class="section-title">
+                <div>
+                    <span class="mini-label">LEARN</span>
+                    <h2>Understanding Max Heap</h2>
+                </div>
+            </div>
+
+            <div class="definition">
+                <h3>What is a Max Heap?</h3>
+
+                <p>
+                    A Max Heap is a complete binary tree where every parent
+                    node is greater than or equal to its children.
+                </p>
+            </div>
+
+            <div class="concept-grid">
+
+                <div class="concept">
+                    <h3>🌳 Complete Binary Tree</h3>
+                    <p>
+                        Every level is completely filled except possibly
+                        the last level, which is filled from left to right.
+                    </p>
+                </div>
+
+                <div class="concept">
+                    <h3>👑 Max Heap Property</h3>
+                    <p>
+                        Every parent must be greater than or equal to
+                        both of its children.
+                    </p>
+                </div>
+
+                <div class="concept">
+                    <h3>⬆️ Heapify Up</h3>
+                    <p>
+                        Used after insertion. Compare a node with its
+                        parent and swap when necessary.
+                    </p>
+                </div>
+
+                <div class="concept">
+                    <h3>⬇️ Heapify Down</h3>
+                    <p>
+                        Used after removing the root. Compare with the
+                        largest child and swap when necessary.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="formula-box">
+                <h3>Array Index Formulas</h3>
+
+                <div class="formulas">
+                    <code>Parent = floor((i - 1) / 2)</code>
+                    <code>Left Child = 2i + 1</code>
+                    <code>Right Child = 2i + 2</code>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- PSEUDOCODE -->
+        <section class="glass pseudo">
+
+            <details>
+                <summary>📜 View Max Heap Pseudocode</summary>
+
+                <div class="code-tabs">
+                    <button onclick="showPseudo('insert')">Insert</button>
+                    <button onclick="showPseudo('up')">Heapify Up</button>
+                    <button onclick="showPseudo('down')">Heapify Down</button>
+                    <button onclick="showPseudo('extract')">Extract Max</button>
+                    <button onclick="showPseudo('build')">Build Heap</button>
+                    <button onclick="showPseudo('sort')">Heap Sort</button>
+                </div>
+
+                <pre id="pseudoCode"></pre>
+            </details>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>MAX HEAP VISUALIZER • Built for Algorithm Learning</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bubble Sort Visualizer</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+    <div class="bubble b4"></div>
+    <div class="bubble b5"></div>
+    <div class="bubble b6"></div>
+
+
+    <main class="container">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="header">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    B
+                </div>
+
+                <div>
+
+                    <h1>
+                        Bubble Sort
+                    </h1>
+
+                    <p>
+                        INTERACTIVE ALGORITHM VISUALIZER
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="live-badge">
+
+                <span class="live-dot"></span>
+
+                LIVE VISUALIZER
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= INTRO ================= -->
+
+        <section class="intro">
+
+            <div>
+
+                <span class="eyebrow">
+                    ALGORITHM / 01
+                </span>
+
+                <h2>
+                    Bubble Sort
+                </h2>
+
+                <p>
+                    Watch how adjacent elements are compared and
+                    swapped step-by-step until the complete array
+                    reaches sorted order.
+                </p>
+
+            </div>
+
+
+            <div class="algorithm-card">
+
+                <strong>
+                    O(n²)
+                </strong>
+
+                <span>
+                    AVERAGE TIME
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= CONTROLS ================= -->
+
+        <section class="control-panel">
+
+            <div class="control-row">
+
+
+                <div class="control-group">
+
+                    <label>
+                        ARRAY SIZE
+                    </label>
+
+                    <input type="number" id="arraySize" value="12" min="5" max="30">
+
+                </div>
+
+
+                <div class="control-group">
+
+                    <label>
+                        ORDER
+                    </label>
+
+                    <select id="order">
+
+                        <option value="ascending">
+                            Ascending
+                        </option>
+
+                        <option value="descending">
+                            Descending
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="control-group speed-control">
+
+                    <label>
+                        ANIMATION SPEED
+                    </label>
+
+                    <input type="range" id="speed" min="50" max="1000" value="400">
+
+                    <span id="speedValue">
+                        Normal
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="action-buttons">
+
+                <button class="btn primary" id="startBtn">
+                    ▶ START
+                </button>
+
+                <button class="btn" id="pauseBtn">
+                    ⏸ PAUSE
+                </button>
+
+                <button class="btn danger" id="stopBtn">
+                    ■ STOP
+                </button>
+
+                <button class="btn" id="shuffleBtn">
+                    🔀 SHUFFLE
+                </button>
+
+                <button class="btn reset" id="resetBtn">
+                    ↻ RESET
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= CUSTOM ARRAY ================= -->
+
+        <section class="custom-section">
+
+            <div class="section-title">
+
+                <span>
+                    CUSTOM ARRAY
+                </span>
+
+                <small>
+                    Enter numbers separated by commas
+                </small>
+
+            </div>
+
+
+            <div class="custom-input">
+
+                <input type="text" id="customArray" placeholder="Example: 45, 12, 78, 23, 9, 56">
+
+                <button id="applyArray">
+                    APPLY ARRAY
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= VISUALIZER ================= -->
+
+        <section class="visualizer">
+
+
+            <div class="visualizer-header">
+
+                <div>
+
+                    <span>
+                        ARRAY VISUALIZATION
+                    </span>
+
+                    <h3>
+                        Live Sorting Process
+                    </h3>
+
+                </div>
+
+
+                <div class="array-count">
+
+                    <span>
+                        ELEMENTS
+                    </span>
+
+                    <strong id="elementCount">
+                        12
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Status -->
+
+            <div class="status">
+
+                <div class="status-icon">
+                    🫧
+                </div>
+
+                <div>
+
+                    <span>
+                        CURRENT OPERATION
+                    </span>
+
+                    <p id="statusText">
+                        Ready to start Bubble Sort
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Timer -->
+
+            <div class="timer-panel">
+
+                <div>
+
+                    <span>
+                        EXECUTION TIME
+                    </span>
+
+                    <strong id="timer">
+                        0.000 ms
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        CURRENT PASS
+                    </span>
+
+                    <strong id="passNumber">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        COMPARISON
+                    </span>
+
+                    <strong id="comparisonInfo">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Array -->
+
+            <div class="array-container" id="arrayContainer"></div>
+
+
+
+            <!-- Legend -->
+
+            <div class="legend">
+
+                <div>
+                    <span class="legend-color normal"></span>
+                    Normal
+                </div>
+
+                <div>
+                    <span class="legend-color compare"></span>
+                    Comparing
+                </div>
+
+                <div>
+                    <span class="legend-color swap"></span>
+                    Swapping
+                </div>
+
+                <div>
+                    <span class="legend-color sorted"></span>
+                    Sorted
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <span>
+                    COMPARISONS
+                </span>
+
+                <strong id="comparisons">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    SWAPS
+                </span>
+
+                <strong id="swaps">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    EXECUTION TIME
+                </span>
+
+                <strong id="executionTime">
+                    0.000 ms
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    PROGRESS
+                </span>
+
+                <strong id="progressText">
+                    0%
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PROGRESS ================= -->
+
+        <section class="progress-section">
+
+            <div class="progress-header">
+
+                <span>
+                    SORTING PROGRESS
+                </span>
+
+                <strong id="progressPercent">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="progress-track">
+
+                <div class="progress-bar" id="progressBar"></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ALGORITHM LOGIC ================= -->
+
+        <section class="logic-section">
+
+            <div class="section-heading">
+
+                <span>
+                    HOW IT WORKS
+                </span>
+
+                <h2>
+                    Bubble Sort Logic
+                </h2>
+
+            </div>
+
+
+            <div class="steps">
+
+
+                <div class="step">
+
+                    <strong>
+                        01
+                    </strong>
+
+                    <h3>
+                        Compare
+                    </h3>
+
+                    <p>
+                        Compare two adjacent elements
+                        in the array.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <strong>
+                        02
+                    </strong>
+
+                    <h3>
+                        Check
+                    </h3>
+
+                    <p>
+                        Check whether the elements
+                        are in the correct order.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <strong>
+                        03
+                    </strong>
+
+                    <h3>
+                        Swap
+                    </h3>
+
+                    <p>
+                        Swap the elements when they
+                        are in the wrong order.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <strong>
+                        04
+                    </strong>
+
+                    <h3>
+                        Repeat
+                    </h3>
+
+                    <p>
+                        Continue passes until the
+                        entire array becomes sorted.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= COMPLEXITY ================= -->
+
+        <section class="complexity">
+
+            <div class="section-heading">
+
+                <span>
+                    PERFORMANCE ANALYSIS
+                </span>
+
+                <h2>
+                    Complexity
+                </h2>
+
+            </div>
+
+
+            <div class="complexity-grid">
+
+
+                <div class="complexity-card best">
+
+                    <span>
+                        BEST CASE
+                    </span>
+
+                    <strong>
+                        O(n)
+                    </strong>
+
+                    <p>
+                        Occurs when the array is already
+                        sorted and no swaps are required.
+                    </p>
+
+                </div>
+
+
+                <div class="complexity-card average">
+
+                    <span>
+                        AVERAGE CASE
+                    </span>
+
+                    <strong>
+                        O(n²)
+                    </strong>
+
+                    <p>
+                        Multiple comparisons and swaps
+                        may be required.
+                    </p>
+
+                </div>
+
+
+                <div class="complexity-card worst">
+
+                    <span>
+                        WORST CASE
+                    </span>
+
+                    <strong>
+                        O(n²)
+                    </strong>
+
+                    <p>
+                        Occurs when the array is arranged
+                        in reverse order.
+                    </p>
+
+                </div>
+
+
+                <div class="complexity-card space">
+
+                    <span>
+                        SPACE
+                    </span>
+
+                    <strong>
+                        O(1)
+                    </strong>
+
+                    <p>
+                        Bubble Sort works in-place and
+                        requires constant extra memory.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <div>
+
+                <strong>
+                    BUBBLE SORT VISUALIZER
+                </strong>
+
+                <p>
+                    Learn algorithms through visualization.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    SPACE: O(1)
+                </span>
+
+                <span>
+                    TIME: O(n²)
+                </span>
+
+            </div>
+
+        </footer>
+
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

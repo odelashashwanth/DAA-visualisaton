@@ -1,0 +1,1759 @@
+/* =====================================
+   LINEAR SEARCH VISUALIZER
+   DEVELOPED BY SHASHWANTH CHARY ODELA
+   CSS PART 1
+===================================== */
+
+
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+
+
+body {
+
+
+    min-height: 100vh;
+
+    color: white;
+
+    overflow-x: hidden;
+
+
+    background:
+
+        linear-gradient(135deg,
+            #020024,
+            #090979,
+            #00d4ff);
+
+
+}
+
+
+
+
+
+
+/* =====================================
+        ANIMATED BACKGROUND
+===================================== */
+
+
+
+.background {
+
+    position: fixed;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    z-index: -1;
+
+
+}
+
+
+
+.circle {
+
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    animation: move 10s infinite alternate;
+
+
+}
+
+
+
+.circle1 {
+
+
+    width: 300px;
+
+    height: 300px;
+
+    background: #00ffff;
+
+    top: 10%;
+
+    left: 10%;
+
+    opacity: 0.25;
+
+
+}
+
+
+
+
+.circle2 {
+
+
+    width: 250px;
+
+    height: 250px;
+
+    background: #ff00ff;
+
+    right: 10%;
+
+    top: 40%;
+
+    opacity: 0.25;
+
+
+}
+
+
+
+
+.circle3 {
+
+
+    width: 350px;
+
+    height: 350px;
+
+    background: #ffff00;
+
+    bottom: 5%;
+
+    left: 40%;
+
+    opacity: 0.15;
+
+
+}
+
+
+
+
+@keyframes move {
+
+
+    from {
+
+        transform: translateY(0) scale(1);
+
+    }
+
+
+    to {
+
+        transform: translateY(-80px) scale(1.2);
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================
+             HEADER
+===================================== */
+
+
+
+header {
+
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+
+}
+
+
+
+
+header h1 {
+
+
+    font-size: 45px;
+
+    color: #00ffff;
+
+
+    text-shadow:
+
+        0 0 10px #00ffff,
+
+        0 0 20px #00ffff;
+
+
+    animation: titleGlow 2s infinite alternate;
+
+
+}
+
+
+
+
+header h3 {
+
+
+    margin-top: 15px;
+
+    font-size: 22px;
+
+    color: #ffffff;
+
+
+}
+
+
+
+
+header p {
+
+
+    margin-top: 15px;
+
+    font-size: 18px;
+
+    color: #ffd700;
+
+
+}
+
+
+
+
+
+@keyframes titleGlow {
+
+
+    from {
+
+
+        text-shadow:
+
+            0 0 10px cyan;
+
+
+    }
+
+
+    to {
+
+
+        text-shadow:
+
+            0 0 30px cyan,
+
+            0 0 50px blue;
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================
+          MAIN CONTAINER
+===================================== */
+
+
+
+.container {
+
+
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================
+          GLASS SECTIONS
+===================================== */
+
+
+
+.control-panel,
+.visual-section,
+.complexity-section,
+.statistics-section,
+.algorithm-section,
+.pseudo-section,
+.project-section,
+.tips-section,
+.developer-section {
+
+
+    margin-top: 30px;
+
+    padding: 30px;
+
+
+    background:
+
+        rgba(255, 255, 255, 0.12);
+
+
+    backdrop-filter: blur(15px);
+
+
+    border-radius: 25px;
+
+
+    border:
+
+        1px solid rgba(255, 255, 255, 0.2);
+
+
+    box-shadow:
+
+        0 0 30px rgba(0, 0, 0, 0.3);
+
+
+    animation: fadeIn 1s ease;
+
+
+}
+
+
+
+
+
+
+@keyframes fadeIn {
+
+
+    from {
+
+
+        opacity: 0;
+
+        transform: translateY(40px);
+
+
+    }
+
+
+    to {
+
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================
+          SECTION HEADINGS
+===================================== */
+
+
+
+section h2 {
+
+
+    text-align: center;
+
+    color: #00ffcc;
+
+    margin-bottom: 25px;
+
+    font-size: 30px;
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================
+          BUTTON DESIGN
+===================================== */
+
+
+
+.controls {
+
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+
+}
+
+
+
+
+
+
+button {
+
+
+    padding: 14px 25px;
+
+
+    border: none;
+
+
+    border-radius: 30px;
+
+
+    cursor: pointer;
+
+
+    font-size: 16px;
+
+
+    font-weight: bold;
+
+
+    color: white;
+
+
+
+    background:
+
+        linear-gradient(45deg,
+            #ff512f,
+            #dd2476);
+
+
+    transition: 0.4s;
+
+
+}
+
+
+
+
+
+button:hover {
+
+
+    transform: translateY(-5px) scale(1.05);
+
+
+    box-shadow:
+
+        0 0 25px #ff00ff;
+
+
+}
+
+
+
+
+
+
+/* =====================================
+          SEARCH INPUT
+===================================== */
+
+
+
+input[type="number"] {
+
+
+    padding: 14px 20px;
+
+
+    border-radius: 30px;
+
+
+    border: none;
+
+
+    outline: none;
+
+
+    font-size: 16px;
+
+
+    width: 220px;
+
+
+}
+
+/* =====================================
+       ARRAY VISUALIZATION
+===================================== */
+
+
+.visual-section {
+
+
+    text-align: center;
+
+
+}
+
+
+
+#array-container {
+
+
+    margin-top: 30px;
+
+
+    height: 300px;
+
+
+    display: flex;
+
+
+    justify-content: center;
+
+
+    align-items: center;
+
+
+    gap: 15px;
+
+
+    flex-wrap: wrap;
+
+
+}
+
+
+
+
+
+/* Array Elements */
+
+
+.array-box {
+
+
+    width: 70px;
+
+
+    height: 70px;
+
+
+    display: flex;
+
+
+    justify-content: center;
+
+
+    align-items: center;
+
+
+    border-radius: 20px;
+
+
+    font-size: 22px;
+
+
+    font-weight: bold;
+
+
+    background:
+
+
+        linear-gradient(135deg,
+            #667eea,
+            #764ba2);
+
+
+    box-shadow:
+
+
+        0 0 20px rgba(255, 255, 255, 0.3);
+
+
+    transition: 0.5s;
+
+
+    position: relative;
+
+
+}
+
+
+
+
+
+.array-box:hover {
+
+
+    transform: translateY(-10px) scale(1.1);
+
+
+}
+
+
+
+
+
+/* Current Searching Element */
+
+
+.array-box.searching {
+
+
+    background:
+
+
+        linear-gradient(135deg,
+            #ffcc00,
+            #ff6600);
+
+
+    color: black;
+
+
+    transform: scale(1.2);
+
+
+    box-shadow:
+
+
+        0 0 30px yellow;
+
+
+    animation: pulse 0.8s infinite;
+
+
+}
+
+
+
+
+
+/* Found Element */
+
+
+.array-box.found {
+
+
+    background:
+
+
+        linear-gradient(135deg,
+            #00ff88,
+            #00cc44);
+
+
+    color: white;
+
+
+    transform: scale(1.3);
+
+
+    box-shadow:
+
+
+        0 0 35px #00ff88;
+
+
+}
+
+
+
+
+
+/* Not Found Animation */
+
+
+.array-box.not-found {
+
+
+    background:
+
+
+        linear-gradient(135deg,
+            #ff0000,
+            #990000);
+
+
+}
+
+
+
+
+
+@keyframes pulse {
+
+
+    0% {
+
+        transform: scale(1);
+
+    }
+
+
+    50% {
+
+        transform: scale(1.25);
+
+    }
+
+
+    100% {
+
+        transform: scale(1);
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================
+        MESSAGE BOX
+===================================== */
+
+
+#message {
+
+
+    margin-top: 25px;
+
+
+    padding: 20px;
+
+
+    border-radius: 20px;
+
+
+    font-size: 20px;
+
+
+    color: #ffd700;
+
+
+    background:
+
+        rgba(0, 0, 0, 0.3);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+       COMPLEXITY CARDS
+===================================== */
+
+
+.complexity-container {
+
+
+    display: grid;
+
+
+    grid-template-columns:
+
+        repeat(auto-fit, minmax(250px, 1fr));
+
+
+    gap: 25px;
+
+
+}
+
+
+
+
+
+.complexity-card {
+
+
+    padding: 25px;
+
+
+    text-align: center;
+
+
+    border-radius: 25px;
+
+
+    background:
+
+
+        linear-gradient(135deg,
+            #1d2671,
+            #c33764);
+
+
+    transition: 0.4s;
+
+
+}
+
+
+
+
+
+.complexity-card:hover {
+
+
+    transform: translateY(-10px);
+
+
+    box-shadow:
+
+
+        0 0 30px cyan;
+
+
+}
+
+
+
+
+
+.complexity-card h3 {
+
+
+    color: #00ffff;
+
+
+    margin-bottom: 20px;
+
+
+}
+
+
+
+
+
+.complexity-card span {
+
+
+    color: #00ff88;
+
+
+    font-weight: bold;
+
+
+    font-size: 20px;
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================
+       STATISTICS DASHBOARD
+===================================== */
+
+
+
+.statistics-container {
+
+
+    display: grid;
+
+
+    grid-template-columns:
+
+        repeat(auto-fit, minmax(200px, 1fr));
+
+
+    gap: 20px;
+
+
+}
+
+
+
+
+.stat-card {
+
+
+    padding: 25px;
+
+
+    text-align: center;
+
+
+    border-radius: 20px;
+
+
+    background:
+
+
+        rgba(255, 255, 255, 0.15);
+
+
+    transition: 0.4s;
+
+
+}
+
+
+
+
+
+.stat-card:hover {
+
+
+    transform: scale(1.05);
+
+
+    box-shadow:
+
+
+        0 0 25px #00ffff;
+
+
+}
+
+
+
+
+
+.stat-card h3 {
+
+
+    color: #ffd700;
+
+
+    margin-bottom: 15px;
+
+
+}
+
+
+
+
+
+.stat-card p {
+
+
+    font-size: 35px;
+
+
+    font-weight: bold;
+
+
+    color: #00ffcc;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+       ALGORITHM STEPS
+===================================== */
+
+
+
+.steps-container {
+
+
+    display: grid;
+
+
+    grid-template-columns:
+
+        repeat(auto-fit, minmax(220px, 1fr));
+
+
+    gap: 20px;
+
+
+}
+
+
+
+
+.step {
+
+
+    padding: 25px;
+
+
+    border-radius: 20px;
+
+
+    text-align: center;
+
+
+    background:
+
+
+        linear-gradient(135deg,
+            #11998e,
+            #38ef7d);
+
+
+    color: black;
+
+
+    transition: 0.4s;
+
+
+}
+
+
+
+
+
+.step:hover {
+
+
+    transform:
+
+        translateY(-10px);
+
+
+    box-shadow:
+
+
+        0 0 25px #00ff88;
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================
+       PSEUDOCODE BOX
+===================================== */
+
+
+pre {
+
+
+    background: #050505;
+
+
+    color: #00ff99;
+
+
+    padding: 30px;
+
+
+    border-radius: 20px;
+
+
+    overflow-x: auto;
+
+
+    font-size: 17px;
+
+
+    line-height: 1.8;
+
+
+    box-shadow:
+
+
+        inset 0 0 20px black;
+
+
+}
+
+/* =====================================
+       PROJECT HIGHLIGHTS
+===================================== */
+
+
+.highlight-container {
+
+
+    display: grid;
+
+
+    grid-template-columns:
+
+        repeat(auto-fit, minmax(250px, 1fr));
+
+
+    gap: 25px;
+
+
+}
+
+
+
+.highlight-card {
+
+
+    padding: 25px;
+
+
+    border-radius: 25px;
+
+
+    text-align: center;
+
+
+    background:
+
+
+        linear-gradient(135deg,
+
+            #232526,
+
+            #414345);
+
+
+    transition: 0.4s;
+
+
+}
+
+
+
+
+.highlight-card:hover {
+
+
+    transform:
+
+        translateY(-12px);
+
+
+    box-shadow:
+
+
+        0 0 30px #00ffff;
+
+
+}
+
+
+
+
+.highlight-card h3 {
+
+
+    color: #00ffcc;
+
+
+    margin-bottom: 15px;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+          TIPS SECTION
+===================================== */
+
+
+.tips-section ul {
+
+
+    list-style: none;
+
+
+}
+
+
+
+.tips-section li {
+
+
+    margin: 15px 0;
+
+
+    padding: 15px;
+
+
+    border-radius: 15px;
+
+
+    background:
+
+        rgba(255, 255, 255, 0.1);
+
+
+    font-size: 18px;
+
+
+    transition: 0.3s;
+
+
+}
+
+
+
+.tips-section li:hover {
+
+
+    transform:
+
+        translateX(15px);
+
+
+    background:
+
+        rgba(0, 255, 204, 0.2);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+          RESULT BOX
+===================================== */
+
+
+.result-section {
+
+
+    margin-top: 30px;
+
+
+    text-align: center;
+
+
+}
+
+
+
+
+#resultBox {
+
+
+    padding: 30px;
+
+
+    border-radius: 25px;
+
+
+    font-size: 25px;
+
+
+    font-weight: bold;
+
+
+    background:
+
+
+        rgba(0, 0, 0, 0.4);
+
+
+    color: #ffd700;
+
+
+    box-shadow:
+
+
+        0 0 30px rgba(255, 215, 0, 0.3);
+
+
+    animation:
+
+        resultGlow 2s infinite alternate;
+
+
+}
+
+
+
+
+
+@keyframes resultGlow {
+
+
+    from {
+
+
+        box-shadow:
+
+            0 0 15px gold;
+
+
+    }
+
+
+    to {
+
+
+        box-shadow:
+
+            0 0 40px cyan;
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+        DEVELOPER SECTION
+===================================== */
+
+
+.developer-card {
+
+
+    text-align: center;
+
+
+    padding: 40px;
+
+
+    border-radius: 30px;
+
+
+    background:
+
+
+        linear-gradient(135deg,
+
+            #000428,
+
+            #004e92);
+
+
+    border:
+
+
+        2px solid rgba(255, 255, 255, 0.2);
+
+
+}
+
+
+
+
+
+.developer-card h1 {
+
+
+    margin: 20px 0;
+
+
+    font-size: 40px;
+
+
+    color: #00ffff;
+
+
+    text-shadow:
+
+
+        0 0 20px cyan;
+
+
+}
+
+
+
+.developer-card p {
+
+
+    font-size: 18px;
+
+
+    color: #ddd;
+
+
+    line-height: 1.7;
+
+
+}
+
+
+
+
+
+
+
+/* Achievement Badge */
+
+
+.badge {
+
+
+    display: inline-block;
+
+
+    margin-top: 25px;
+
+
+    padding: 15px 30px;
+
+
+    border-radius: 50px;
+
+
+    background:
+
+
+        linear-gradient(45deg,
+
+            #ffd700,
+
+            #ff8c00);
+
+
+    color: black;
+
+
+    font-weight: bold;
+
+
+    animation:
+
+
+        badgeAnimation 2s infinite alternate;
+
+
+}
+
+
+
+
+@keyframes badgeAnimation {
+
+
+    from {
+
+
+        transform: scale(1);
+
+
+    }
+
+
+    to {
+
+
+        transform: scale(1.1);
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+              FOOTER
+===================================== */
+
+
+footer {
+
+
+    margin-top: 40px;
+
+
+    padding: 30px;
+
+
+    text-align: center;
+
+
+    background:
+
+
+        rgba(0, 0, 0, 0.4);
+
+
+    border-top:
+
+
+        1px solid rgba(255, 255, 255, 0.2);
+
+
+}
+
+
+
+footer h3 {
+
+
+    color: #00ffff;
+
+
+    font-size: 28px;
+
+
+}
+
+
+
+footer p {
+
+
+    margin-top: 10px;
+
+
+    color: #ddd;
+
+
+    font-size: 16px;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+        PAGE SCROLL DESIGN
+===================================== */
+
+
+::-webkit-scrollbar {
+
+
+    width: 10px;
+
+
+}
+
+
+
+
+::-webkit-scrollbar-track {
+
+
+    background: #111;
+
+
+}
+
+
+
+
+
+::-webkit-scrollbar-thumb {
+
+
+    background:
+
+
+        linear-gradient(cyan,
+
+            purple);
+
+
+    border-radius: 20px;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+        MOBILE RESPONSIVE
+===================================== */
+
+
+@media(max-width:700px) {
+
+
+
+    header h1 {
+
+
+        font-size: 30px;
+
+
+    }
+
+
+
+
+    header h3 {
+
+
+        font-size: 18px;
+
+
+    }
+
+
+
+
+
+    .container {
+
+
+        width: 95%;
+
+
+    }
+
+
+
+
+    button {
+
+
+        width: 100%;
+
+
+    }
+
+
+
+
+    .controls {
+
+
+        flex-direction: column;
+
+
+    }
+
+
+
+
+
+    .array-box {
+
+
+        width: 55px;
+
+
+        height: 55px;
+
+
+        font-size: 18px;
+
+
+    }
+
+
+
+
+    .developer-card h1 {
+
+
+        font-size: 28px;
+
+
+    }
+
+
+
+}

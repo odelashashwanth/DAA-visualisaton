@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Insertion Sort Visualizer Pro++</title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+            Animated Background
+    =========================================== -->
+
+    <div class="background">
+
+        <div class="circle c1"></div>
+
+        <div class="circle c2"></div>
+
+        <div class="circle c3"></div>
+
+        <div class="circle c4"></div>
+
+    </div>
+
+    <!-- ==========================================
+                MAIN CONTAINER
+    =========================================== -->
+
+    <div class="container">
+
+        <!-- ======================================
+                    HEADER
+        ======================================= -->
+
+        <header>
+
+            <div class="logo">
+
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+
+                <div>
+
+                    <h1>
+                        Insertion Sort Visualizer Pro++
+                    </h1>
+
+                    <p>
+
+                        Interactive Learning Platform
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="developer">
+
+                <h3>
+
+                    Developed By
+
+                </h3>
+
+                <h2>
+
+                    👨‍💻 Shashwanth Chary Odela
+
+                </h2>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ======================================
+                INTRODUCTION
+        ======================================= -->
+
+        <section class="projectInfo">
+
+            <div class="infoBox">
+
+                <h2>
+
+                    <i class="fa-solid fa-book-open"></i>
+
+                    What is Insertion Sort?
+
+                </h2>
+
+                <p>
+
+                    Insertion Sort is a simple sorting algorithm
+                    that builds the sorted array one element at a
+                    time.
+
+                    It picks one element (called the Key),
+                    compares it with previous elements,
+                    shifts larger elements to the right,
+                    and inserts the key into its correct position.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="infoBox">
+
+                <h2>
+
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                    Real Life Example
+
+                </h2>
+
+                <p>
+
+                    Imagine arranging playing cards in your hand.
+
+                    Every time you pick a new card,
+                    you insert it into the correct position.
+
+                    That is exactly how
+                    <strong>Insertion Sort</strong> works.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="infoBox">
+
+                <h2>
+
+                    <i class="fa-solid fa-star"></i>
+
+                    Features
+
+                </h2>
+
+                <ul>
+
+                    <li>Live Visualization</li>
+
+                    <li>AI Teacher</li>
+
+                    <li>Current Key Highlight</li>
+
+                    <li>Shift Animation</li>
+
+                    <li>Progress Tracking</li>
+
+                    <li>Performance Dashboard</li>
+
+                    <li>Completion Certificate</li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+            COMPLEXITY SECTION
+        ======================================= -->
+
+        <section class="projectInfo">
+
+            <div class="infoBox">
+
+                <h2>
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    Time Complexity
+
+                </h2>
+
+                <table>
+
+                    <tr>
+
+                        <td>Best Case</td>
+
+                        <td><b>O(n)</b></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Average Case</td>
+
+                        <td><b>O(n²)</b></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Worst Case</td>
+
+                        <td><b>O(n²)</b></td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+
+            <div class="infoBox">
+
+                <h2>
+
+                    <i class="fa-solid fa-memory"></i>
+
+                    Space Complexity
+
+                </h2>
+
+                <table>
+
+                    <tr>
+
+                        <td>Space Complexity</td>
+
+                        <td><b>O(1)</b></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Stable Sort</td>
+
+                        <td>✅ Yes</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>In-place</td>
+
+                        <td>✅ Yes</td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+
+            <div class="infoBox">
+
+                <h2>
+
+                    <i class="fa-solid fa-list-check"></i>
+
+                    Algorithm Steps
+
+                </h2>
+
+                <ol>
+
+                    <li>Select the Key element.</li>
+
+                    <li>Compare with previous elements.</li>
+
+                    <li>Shift larger elements right.</li>
+
+                    <li>Insert the Key.</li>
+
+                    <li>Repeat until sorted.</li>
+
+                </ol>
+
+            </div>
+
+        </section>
+        <!-- ======================================
+                                CONTROL PANEL
+                        ======================================= -->
+
+        <section class="controls">
+
+            <button id="generateBtn">
+                <i class="fa-solid fa-dice"></i>
+                Generate Array
+            </button>
+
+            <button id="startBtn">
+                <i class="fa-solid fa-play"></i>
+                Start
+            </button>
+
+            <button id="pauseBtn">
+                <i class="fa-solid fa-pause"></i>
+                Pause
+            </button>
+
+            <button id="resumeBtn">
+                <i class="fa-solid fa-forward"></i>
+                Resume
+            </button>
+
+            <button id="resetBtn">
+                <i class="fa-solid fa-rotate-right"></i>
+                Reset
+            </button>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                SLIDERS
+                        ======================================= -->
+
+        <section class="sliderPanel">
+
+            <div class="sliderBox">
+
+                <label>
+
+                    <i class="fa-solid fa-gauge-high"></i>
+
+                    Sorting Speed
+
+                </label>
+
+                <input type="range" id="speed" min="50" max="1000" value="350">
+
+            </div>
+
+
+
+            <div class="sliderBox">
+
+                <label>
+
+                    <i class="fa-solid fa-bars"></i>
+
+                    Array Size
+
+                </label>
+
+                <input type="range" id="arraySize" min="5" max="30" value="15">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                LIVE DASHBOARD
+                        ======================================= -->
+
+        <section class="dashboard">
+
+            <div class="card">
+
+                <i class="fa-solid fa-code-compare"></i>
+
+                <h3>Comparisons</h3>
+
+                <h2 id="comparison">0</h2>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+                <h3>Shifts</h3>
+
+                <h2 id="shifts">0</h2>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <i class="fa-solid fa-key"></i>
+
+                <h3>Current Key</h3>
+
+                <h2 id="currentKey">-</h2>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <h3>Current Index</h3>
+
+                <h2 id="currentIndex">-</h2>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <i class="fa-solid fa-repeat"></i>
+
+                <h3>Pass</h3>
+
+                <h2 id="pass">0</h2>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <i class="fa-solid fa-stopwatch"></i>
+
+                <h3>Execution Time</h3>
+
+                <h2 id="timer">0.00 s</h2>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                PROGRESS BAR
+                        ======================================= -->
+
+        <section class="progressSection">
+
+            <div class="progressHeader">
+
+                <h2>
+
+                    Sorting Progress
+
+                </h2>
+
+                <span id="progressPercent">
+
+                    0%
+
+                </span>
+
+            </div>
+
+            <div class="progressBar">
+
+                <div id="progressFill"></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                AI TEACHER
+                        ======================================= -->
+
+        <section class="robotSection">
+
+            <div class="robotImage">
+
+                🤖
+
+            </div>
+
+            <div class="robotContent">
+
+                <h2>
+
+                    AI Teacher
+
+                </h2>
+
+                <p id="robotMessage">
+
+                    Welcome!
+
+                    Generate an array and press Start to begin learning
+                    Insertion Sort.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                ARRAY VISUALIZER
+                        ======================================= -->
+
+        <section class="visualizer">
+
+            <div id="arrayContainer" class="arrayContainer">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                ARRAY DETAILS
+                        ======================================= -->
+
+        <section class="arraySection">
+
+            <div class="arrayCard">
+
+                <h2>
+
+                    Original Array
+
+                </h2>
+
+                <p id="originalArray">
+
+                    -
+
+                </p>
+
+            </div>
+
+
+
+            <div class="arrayCard">
+
+                <h2>
+
+                    Current Array
+
+                </h2>
+
+                <p id="currentArray">
+
+                    -
+
+                </p>
+
+            </div>
+
+
+
+            <div class="arrayCard">
+
+                <h2>
+
+                    Sorted Array
+
+                </h2>
+
+                <p id="sortedArray">
+
+                    -
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                            CURRENT OPERATION
+                        ======================================= -->
+
+        <section class="operationPanel">
+
+            <div class="operationCard">
+
+                <h3>
+
+                    Current Operation
+
+                </h3>
+
+                <h2 id="currentOperation">
+
+                    Waiting...
+
+                </h2>
+
+            </div>
+
+
+
+            <div class="operationCard">
+
+                <h3>
+
+                    Sorting Status
+
+                </h3>
+
+                <h2 id="sortStatus">
+
+                    Ready
+
+                </h2>
+
+            </div>
+
+        </section>
+        <!-- ======================================
+                                        ADVANTAGES & DISADVANTAGES
+                                ======================================= -->
+
+        <section class="advantages">
+
+            <div class="advCard">
+
+                <h2>✅ Advantages</h2>
+
+                <ul>
+
+                    <li>Easy to understand and implement.</li>
+
+                    <li>Works efficiently for small datasets.</li>
+
+                    <li>Stable Sorting Algorithm.</li>
+
+                    <li>Requires only O(1) extra memory.</li>
+
+                    <li>Good for nearly sorted arrays.</li>
+
+                </ul>
+
+            </div>
+
+
+
+            <div class="advCard">
+
+                <h2>❌ Disadvantages</h2>
+
+                <ul>
+
+                    <li>Slow for large datasets.</li>
+
+                    <li>Worst Case Time Complexity O(n²).</li>
+
+                    <li>Performs many shifts.</li>
+
+                    <li>Not suitable for Big Data.</li>
+
+                    <li>Less efficient than Merge Sort or Quick Sort.</li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                        APPLICATIONS
+                                ======================================= -->
+
+        <section class="learningPanel">
+
+            <h2>
+
+                📚 Applications of Insertion Sort
+
+            </h2>
+
+            <div class="steps">
+
+                <div class="stepCard">
+
+                    <span>1</span>
+
+                    <p>
+
+                        Small datasets
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="stepCard">
+
+                    <span>2</span>
+
+                    <p>
+
+                        Nearly Sorted Arrays
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="stepCard">
+
+                    <span>3</span>
+
+                    <p>
+
+                        Online Sorting
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="stepCard">
+
+                    <span>4</span>
+
+                    <p>
+
+                        Educational Purposes
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                        INTERVIEW QUESTIONS
+                                ======================================= -->
+
+        <section class="learningPanel">
+
+            <h2>
+
+                💼 Frequently Asked Interview Questions
+
+            </h2>
+
+            <div class="steps">
+
+                <div class="stepCard">
+
+                    <span>Q1</span>
+
+                    <p>
+
+                        Is Insertion Sort Stable?
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="stepCard">
+
+                    <span>Q2</span>
+
+                    <p>
+
+                        Why is Best Case O(n)?
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="stepCard">
+
+                    <span>Q3</span>
+
+                    <p>
+
+                        Difference between Bubble and Insertion Sort?
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="stepCard">
+
+                    <span>Q4</span>
+
+                    <p>
+
+                        When should we use Insertion Sort?
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+                                        COMPLETION SCREEN
+                                ======================================= -->
+
+        <div id="completionScreen" class="completionScreen">
+
+
+
+            <div class="completionCard">
+
+
+
+                <div class="trophy">
+
+                    🏆
+
+                </div>
+
+
+
+                <h1>
+
+                    Congratulations!
+
+                </h1>
+
+
+
+                <h2>
+
+                    Insertion Sort Completed Successfully
+
+                </h2>
+
+
+
+                <div class="line"></div>
+
+
+
+                <div class="result">
+
+                    <h3>
+
+                        Original Array
+
+                    </h3>
+
+                    <p id="finalOriginalArray">
+
+                        -
+
+                    </p>
+
+
+
+                    <h3>
+
+                        Sorted Array
+
+                    </h3>
+
+                    <p id="finalSortedArray">
+
+                        -
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="finalStats">
+
+                    <div>
+
+                        <h4>
+
+                            Comparisons
+
+                        </h4>
+
+                        <h2 id="finalComparisons">
+
+                            0
+
+                        </h2>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <h4>
+
+                            Shifts
+
+                        </h4>
+
+                        <h2 id="finalShifts">
+
+                            0
+
+                        </h2>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <h4>
+
+                            Passes
+
+                        </h4>
+
+                        <h2 id="finalPasses">
+
+                            0
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="complexitySummary">
+
+                    <p>
+
+                        ✅ Best Case : <b>O(n)</b>
+
+                    </p>
+
+                    <p>
+
+                        ✅ Average Case : <b>O(n²)</b>
+
+                    </p>
+
+                    <p>
+
+                        ✅ Worst Case : <b>O(n²)</b>
+
+                    </p>
+
+                    <p>
+
+                        ✅ Space Complexity : <b>O(1)</b>
+
+                    </p>
+
+                </div>
+
+
+
+                <button id="closeCompletion">
+
+                    Continue Learning
+
+                </button>
+
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ======================================
+                                            FOOTER
+                                ======================================= -->
+
+        <footer>
+
+
+
+            <div>
+
+                <h2>
+
+                    Insertion Sort Visualizer Pro++
+
+                </h2>
+
+                <p>
+
+                    Learn Data Structures & Algorithms through
+                    interactive visualization, animations,
+                    AI explanations, and real-time statistics.
+
+                </p>
+
+            </div>
+
+
+
+            <div>
+
+                <h3>
+
+                    Algorithm Facts
+
+                </h3>
+
+                <ul>
+
+                    <li>Stable Algorithm</li>
+
+                    <li>In-place Algorithm</li>
+
+                    <li>Adaptive Algorithm</li>
+
+                    <li>Best Case O(n)</li>
+
+                    <li>Worst Case O(n²)</li>
+
+                </ul>
+
+            </div>
+
+
+
+            <div>
+
+                <h3>
+
+                    Developed By
+
+                </h3>
+
+                <p>
+
+                    👨‍💻 Shashwanth Chary Odela
+
+                </p>
+
+                <p>
+
+                    HTML • CSS • JavaScript
+
+                </p>
+
+            </div>
+
+
+
+        </footer>
+
+
+
+        <div class="copyright">
+
+            © 2026
+
+            Insertion Sort Visualizer Pro++
+
+            | Developed by
+
+            <strong>
+
+                Shashwanth Chary Odela
+
+            </strong>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+<span id="iteration">0</span>
+<span id="complexityLive">O(n)</span>
+<span id="badge">Ready</span>
